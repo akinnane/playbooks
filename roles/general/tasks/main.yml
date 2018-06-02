@@ -5,7 +5,7 @@
 
 - name: Install base packages
   apt:
-    state: installed
+    state: present
     pkg: "{{item}}"
   with_items:
     - emacs
@@ -14,3 +14,10 @@
 
 - name: Install Unattended-upgrades
   apt: name=unattended-upgrades
+
+- name: GDM config
+  copy:
+    src: etc/gdm3/custom.conf
+    dest: /etc/gdm3/custom.conf
+    owner: root
+    group: root
