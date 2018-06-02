@@ -1,0 +1,16 @@
+- name: Update everything
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: Install base packages
+  apt:
+    state: installed
+    pkg: "{{item}}"
+  with_items:
+    - emacs
+    - awesome
+    - awesome-extra
+
+- name: Install Unattended-upgrades
+  apt: name=unattended-upgrades
