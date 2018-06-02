@@ -11,6 +11,8 @@
     - emacs
     - awesome
     - awesome-extra
+    - net-tools
+    - openssh-server
 
 - name: Install Unattended-upgrades
   apt: name=unattended-upgrades
@@ -21,3 +23,7 @@
     dest: /etc/gdm3/custom.conf
     owner: root
     group: root
+
+
+- name: ssh-server
+  systemd: state=started name=ssh
