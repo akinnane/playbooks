@@ -43,7 +43,7 @@
     - google-chrome-stable
     - gparted
     - iptables-persistent
-    - map
+    - nmap
     - net-tools
     - network-manager-openconnect
     - network-manager-openconnect-gnome
