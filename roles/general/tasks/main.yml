@@ -17,20 +17,12 @@
 - name: Install Unattended-upgrades
   apt: name=unattended-upgrades
 
-- name: GDM config
-  copy:
-    src: etc/gdm3/custom.conf
-    dest: /etc/gdm3/custom.conf
-    owner: root
-    group: root
-
-- name: GTK Defaults
-  copy:
-    src: etc/gtk-3.0/settings.ini
-    dest: /etc/gtk-3.0/settings.ini
-    owner: root
-    group: root
-
+- name: Manage etc
+  synchronize:
+    src: etc
+    dest: /
+    archive: no
+    recursive: yes
 
 - name: ssh-server
   systemd: state=started name=ssh
