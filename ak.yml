@@ -1,6 +1,4 @@
 - hosts: all
-  gather_facts: yes
-
-- hosts: ak
   roles:
+  gather_facts: yes
     - general
