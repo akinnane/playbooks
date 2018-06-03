@@ -31,6 +31,7 @@
     state: present
     pkg: "{{item}}"
   with_items:
+    - ansible
     - audacity
     - awesome
     - awesome-extra
@@ -139,4 +140,5 @@
   cron:
     name: ansible
     minute: 0
+    cron_file: ansible-update
     job: /usr/bin/ansible-pull -U https://github.com/akinnane/playbooks.git -i localhost,
