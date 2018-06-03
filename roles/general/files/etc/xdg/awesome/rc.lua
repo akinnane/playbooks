@@ -569,3 +569,6 @@ client.connect_signal(
 end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+awful.util.spawn_with_shell("xscreensaver -no-splash")
+awful.util.spawn_with_shell("gnome-keyring-daemon")
