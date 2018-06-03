@@ -17,7 +17,7 @@
   apt_key:
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
 
-- name: Spotify Repo
+- name: Google Repo
   apt_repository:
     repo: deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
 
@@ -62,11 +62,13 @@
     - unattended-upgrades
     - audacity
     - google-chrome-stable
+    - docker.io
 
 - name: Manage etc
   synchronize:
     src: etc
     dest: /
+    checksum: yes
     archive: no
     recursive: yes
   notify: dconf-db
@@ -81,14 +83,36 @@
 - name: Manage home .files
   synchronize:
     src: home/a
-    dest: /home/a
+    dest: /home/
     archive: no
+    checksum: yes
     recursive: yes
 
 - name: Oh my zsh
   git:
-    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    repo: https://GitHub.com/robbyrussell/oh-my-zsh.git
     dest: /home/a/.oh-my-zsh
 
 - name: ssh-server
-  systemd: state=started name=ssh
+  systemd:
+    name: ssh
+    enabled: yes
+    state: started
+
+- name: cups
+  systemd:
+    name: cups
+    enabled: no
+    state: stopped
+
+- name: tor
+  systemd:
+    name: tor
+    enabled: no
+    state: stopped
+
+- name: cups
+  systemd:
+    name: avahi-daemon
+    enabled: no
+    state: stopped
