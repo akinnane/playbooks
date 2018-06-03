@@ -1,5 +1,12 @@
 - name: sshd
-  service: name=sshd state=restarted
+  service:
+    name: sshd
+    state: restarted
+
+- name: iptables-persistant
+  service:
+    name: iptables-persistant
+    state: restarted
 
 - name: dconf-db
   command: dconf update

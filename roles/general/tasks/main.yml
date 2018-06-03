@@ -71,7 +71,9 @@
     checksum: yes
     archive: no
     recursive: yes
-  notify: dconf-db
+  notify:
+    - dconf-db
+    - iptables-persistant
 
 - name: Add user
   user:
