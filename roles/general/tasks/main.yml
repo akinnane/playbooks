@@ -1,7 +1,23 @@
+- name: Spotify apt key1
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+
+- name: Spotify apt key2
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+
+- name: Spotify Repo
+  apt_repository:
+    repo: deb deb http://repository.spotify.com stable non-free
+    state: present
+
 - name: Update everything
   apt:
     upgrade: dist
     update_cache: yes
+
 
 - name: Install base packages
   apt:
@@ -13,6 +29,31 @@
     - awesome-extra
     - net-tools
     - openssh-server
+    - zsh
+    - virt-manager
+    - virt-viewer
+    - qemu
+    - kvm
+    - tor
+    - virtualenv
+    - vlc
+    - checkinstall
+    - gparted
+    - docker
+    - openconnect
+    - network-manager-openconnect
+    - network-manager-openconnect-gnome
+    - chromium-chromedriver
+    - python3-pip
+    - rar
+    - curl
+    - iptables-persistent
+    - wireshark
+    - smbclient
+    - ngrep
+    - ruby
+    - spotify-client
+
 
 - name: Install Unattended-upgrades
   apt: name=unattended-upgrades
@@ -24,6 +65,25 @@
     archive: no
     recursive: yes
   notify: dconf-db
+
+- name: Add user
+  user:
+    name: a
+    shell: /bin/zsh
+    uid: 11111
+    group: adm,sudo,plugdev,lpadmin,sambashare,libvirt,libvirt-qemu,docker
+
+- name: Manage home .files
+  synchronize:
+    src: home/a
+    dest: /home/a
+    archive: no
+    recursive: yes
+
+- name: Oh my zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: /home/a/.oh-my-zsh
 
 - name: ssh-server
   systemd: state=started name=ssh
