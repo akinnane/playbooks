@@ -75,7 +75,7 @@
     recursive: yes
   notify:
     - dconf-db
-    - iptables-persistant
+    - netfilter-persistent
 
 - name: Add user
   user:
@@ -97,13 +97,18 @@
     repo: https://GitHub.com/robbyrussell/oh-my-zsh.git
     dest: /home/a/.oh-my-zsh
 
+- name: emacs prelude
+  git:
+    repo: https://github.com/akinnane/prelude.git
+    dest: /home/a/.emacs.d
+
 - name: ssh-server
   systemd:
     name: ssh
     enabled: yes
     state: started
 
-- name: netfilter-persistant
+- name: netfilter-persistent
   systemd:
     name: netfilter-persistent
     enabled: yes
