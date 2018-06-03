@@ -134,3 +134,9 @@
     name: avahi-daemon
     enabled: no
     state: stopped
+
+- name: Schedule automatic ansible updates
+  cron:
+    name: ansible
+    minute: 0
+    job: /usr/bin/ansible-pull -U https://github.com/akinnane/playbooks.git -i localhost,
