@@ -1,0 +1,4 @@
+- hosts: all
+  roles:
+  gather_facts: yes
+    - general

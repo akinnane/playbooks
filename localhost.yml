@@ -1,4 +1,4 @@
 - hosts: localhost
-  gather_facts: yes
   roles:
+  gather_facts: yes
     - general

@@ -10,7 +10,7 @@
 
 - name: Spotify Repo
   apt_repository:
-    repo: deb deb http://repository.spotify.com stable non-free
+    repo: deb http://repository.spotify.com stable non-free
     state: present
 
 - name: Update everything
