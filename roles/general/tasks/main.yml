@@ -50,6 +50,9 @@
     - ngrep
     - openconnect
     - openssh-server
+    - openconnect
+    - network-manager-openconnect
+    - network-manager-openconnect-gnome
     - python3-pip
     - qemu
     - rar
