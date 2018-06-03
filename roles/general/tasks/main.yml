@@ -31,38 +31,40 @@
     state: present
     pkg: "{{item}}"
   with_items:
-    - emacs
+    - audacity
     - awesome
     - awesome-extra
-    - net-tools
-    - openssh-server
-    - zsh
-    - virt-manager
-    - virt-viewer
-    - qemu
-    - tor
-    - virtualenv
-    - vlc
     - checkinstall
-    - gparted
+    - chromium-chromedriver
+    - curl
     - docker
-    - openconnect
+    - docker.io
+    - emacs
+    - google-chrome-stable
+    - gparted
+    - iptables-persistent
+    - map
+    - net-tools
     - network-manager-openconnect
     - network-manager-openconnect-gnome
-    - chromium-chromedriver
-    - python3-pip
-    - rar
-    - curl
-    - iptables-persistent
-    - wireshark
-    - smbclient
     - ngrep
+    - openconnect
+    - openssh-server
+    - python3-pip
+    - qemu
+    - rar
     - ruby
+    - smbclient
     - spotify-client
+    - tor
     - unattended-upgrades
-    - audacity
-    - google-chrome-stable
-    - docker.io
+    - virt-manager
+    - virtualenv
+    - virt-viewer
+    - vlc
+    - wireshark
+    - xscreensaver
+    - zsh
 
 - name: Manage etc
   synchronize:
