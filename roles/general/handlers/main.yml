@@ -3,9 +3,9 @@
     name: sshd
     state: restarted
 
-- name: iptables-persistant
+- name: iptables-persistent
   service:
-    name: netfilter-persistant
+    name: netfilter-persistent
     state: restarted
 
 - name: dconf-db
