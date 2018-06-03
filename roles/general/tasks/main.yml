@@ -13,11 +13,18 @@
     repo: deb http://repository.spotify.com stable non-free
     state: present
 
+- name: Google apt key
+  apt_key:
+    url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+
+- name: Spotify Repo
+  apt_repository:
+    repo: deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
+
 - name: Update everything
   apt:
     upgrade: dist
     update_cache: yes
-
 
 - name: Install base packages
   apt:
@@ -33,7 +40,6 @@
     - virt-manager
     - virt-viewer
     - qemu
-    - kvm
     - tor
     - virtualenv
     - vlc
@@ -53,10 +59,9 @@
     - ngrep
     - ruby
     - spotify-client
-
-
-- name: Install Unattended-upgrades
-  apt: name=unattended-upgrades
+    - unattended-upgrades
+    - audacity
+    - google-chrome-stable
 
 - name: Manage etc
   synchronize:
@@ -71,7 +76,7 @@
     name: a
     shell: /bin/zsh
     uid: 11111
-    group: adm,sudo,plugdev,lpadmin,sambashare,libvirt,libvirt-qemu,docker
+    groups: adm,sudo,plugdev,lpadmin,sambashare,libvirt,libvirt-qemu,docker
 
 - name: Manage home .files
   synchronize:
