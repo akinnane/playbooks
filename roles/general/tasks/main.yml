@@ -23,6 +23,7 @@
     dest: /
     archive: no
     recursive: yes
+  notify: dconf-db
 
 - name: ssh-server
   systemd: state=started name=ssh

@@ -1,2 +1,5 @@
-- name: restart sshd
+- name: sshd
   service: name=sshd state=restarted
+
+- name: dconf-db
+  command: dconf update
