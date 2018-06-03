@@ -24,6 +24,13 @@
     owner: root
     group: root
 
+- name: GTK Defaults
+  copy:
+    src: etc/gtk-3.0/settings.ini
+    dest: /etc/gtk-3.0/settings.ini
+    owner: root
+    group: root
+
 
 - name: ssh-server
   systemd: state=started name=ssh
