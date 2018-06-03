@@ -103,6 +103,12 @@
     enabled: yes
     state: started
 
+- name: netfilter-persistant
+  systemd:
+    name: netfilter-persistent
+    enabled: yes
+    state: started
+
 - name: cups
   systemd:
     name: cups

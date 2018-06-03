@@ -5,7 +5,7 @@
 
 - name: iptables-persistant
   service:
-    name: iptables-persistant
+    name: netfilter-persistant
     state: restarted
 
 - name: dconf-db
