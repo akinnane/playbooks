@@ -16,7 +16,7 @@
   apt_repository:
     repo: deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
 
-- Name: Update everything
+- name: Update everything
   apt:
     upgrade: dist
     update_cache: yes
@@ -59,6 +59,7 @@
     - wireshark
     - xscreensaver
     - zsh
+
 
 - name: Install Dev tools
   apt:
