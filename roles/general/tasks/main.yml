@@ -109,7 +109,7 @@
     name: a
     shell: /bin/zsh
     uid: 11111
-    groups: adm,sudo,plugdev,lpadmin,sambashare,libvirt,libvirt-qemu,docker
+    groups: adm,sudo,plugdev,libvirt,libvirt-qemu,docker
 
 - name: Manage home .files
   synchronize:
@@ -141,11 +141,11 @@
 #     enabled: yes
 #     state: started
 
-- name: cups
-  systemd:
-    name: cups
-    enabled: no
-    state: stopped
+# - name: cups
+#   systemd:
+#     name: cups
+#     enabled: no
+#     state: stopped
 
 - name: tor
   systemd:
@@ -153,11 +153,11 @@
     enabled: no
     state: stopped
 
-- name: cups
-  systemd:
-    name: avahi-daemon
-    enabled: no
-    state: stopped
+# - name: cups
+#   systemd:
+#     name: avahi-daemon
+#     enabled: no
+#    state: stopped
 
 - name: Schedule automatic ansible updates
   cron:

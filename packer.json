@@ -8,6 +8,8 @@
             "region": "{{user `aws_region`}}",
             "instance_type": "c5.large",
             "ssh_username": "ubuntu",
+            "ssh_keypair_name": "grrrr",
+            "ssh_private_key_file": "grrrr.pem",
             "ami_name": "test ami ubuntu ",
             "ami_description": "Customized Ubuntu build",
             "associate_public_ip_address": "true",
@@ -27,6 +29,7 @@
     "provisioners": [
         {
             "type": "shell",
+            "expect_disconnect": true,
             "inline": [
                 "sleep 30",
                 "sudo apt update",
