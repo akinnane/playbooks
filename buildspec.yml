@@ -10,7 +10,9 @@ phases:
     commands:
       - ansible-playbook --syntax-check ak.yml
       - ansible-playbook --syntax-check localhost.yml
+      - aws cloudformation validate-template --template-body file://cf.yml
 
 artifacts:
   files:
     - cf.yml
+  name: cf
