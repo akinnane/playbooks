@@ -10,3 +10,7 @@ phases:
     commands:
       - ansible-playbook --syntax-check ak.yml
       - ansible-playbook --syntax-check localhost.yml
+
+artifacts:
+  files:
+    - cf.yml
