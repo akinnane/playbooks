@@ -35,6 +35,7 @@
     - gparted
     - iptables-persistent
     - nmap
+    - netfilter-persistent
     - net-tools
     - network-manager-openconnect
     - network-manager-openconnect-gnome
