@@ -6,7 +6,7 @@
         {
             "type": "amazon-ebs",
             "region": "{{user `aws_region`}}",
-            "instance_type": "t2.micro",
+            "instance_type": "c5.large",
             "ssh_username": "ubuntu",
             "ami_name": "test ami ubuntu ",
             "ami_description": "Customized Ubuntu build",

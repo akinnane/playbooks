@@ -13,11 +13,11 @@ phases:
       - ansible-playbook --syntax-check ak.yml
       - ansible-playbook --syntax-check localhost.yml
       - aws cloudformation validate-template --template-body file://cf.yml
+      - ./packer validate packer.json
 
   build:
     commands:
       - ./packer validate packer.json
-
 
 artifacts:
   files:

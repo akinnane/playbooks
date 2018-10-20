@@ -33,9 +33,7 @@
     - emacs
     - google-chrome-stable
     - gparted
-    - iptables-persistent
     - nmap
-    - netfilter-persistent
     - net-tools
     - network-manager-openconnect
     - network-manager-openconnect-gnome
@@ -60,7 +58,8 @@
     - wireshark
     - xscreensaver
     - zsh
-
+    # - netfilter-persistent
+    # - iptables-persistent
 
 - name: Install Dev tools
   apt:
@@ -95,7 +94,7 @@
     recursive: yes
   notify:
     - dconf-db
-    - netfilter-persistent
+#    - netfilter-persistent
 
 - name: Update GDM CSS
   file:
@@ -136,11 +135,11 @@
     enabled: yes
     state: started
 
-- name: netfilter-persistent
-  systemd:
-    name: netfilter-persistent
-    enabled: yes
-    state: started
+# - name: netfilter-persistent
+#   systemd:
+#     name: netfilter-persistent
+#     enabled: yes
+#     state: started
 
 - name: cups
   systemd:
