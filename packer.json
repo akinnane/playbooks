@@ -1,0 +1,39 @@
+{
+    "variables": {
+        "aws_region": "{{env `AWS_REGION`}}"
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "region": "{{user `aws_region`}}",
+            "instance_type": "t2.micro",
+            "ssh_username": "ubuntu",
+            "ami_name": "test ami ubuntu ",
+            "ami_description": "Customized Ubuntu build",
+            "associate_public_ip_address": "true",
+            "source_ami_filter": {
+                "filters": {
+                    "virtualization-type": "hvm",
+                    "name": "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*",
+                    "root-device-type": "ebs"
+                },
+                "owners": [
+                    "099720109477"
+                ],
+                "most_recent": true
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "sleep 30",
+                "sudo apt update",
+                "sudo apt upgrade -y",
+                "sudo apt install -y ansible git",
+                "sudo ansible-pull -vv -U https://github.com/akinnane/playbooks.git -i localhost, localhost.yml"
+            ]
+        }
+    ]
+}
