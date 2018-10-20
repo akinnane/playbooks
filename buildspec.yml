@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+
+  install:
+    commands:
+      - pip install ansible
+
+  build:
+    commands:
+      - ansible-playbook --syntax-check ak.yml
+      - ansible-playbook --syntax-check localhost.yml
