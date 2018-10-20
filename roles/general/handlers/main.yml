@@ -3,7 +3,7 @@
     name: sshd
     state: restarted
 
-- name: iptables-persistent
+- name: netfilter-persistent
   service:
     name: netfilter-persistent
     state: restarted
