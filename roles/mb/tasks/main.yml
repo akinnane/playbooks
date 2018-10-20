@@ -1,0 +1,22 @@
+# - name: Install base packages
+#   apt:
+#     state: present
+#     pkg: "{{item}}"
+#   with_items:
+#     - foo
+
+- name: Manage etc
+  synchronize:
+    src: etc
+    dest: /
+    checksum: yes
+    archive: no
+    recursive: yes
+
+# - name: Manage home .files
+#   synchronize:
+#     src: home/a
+#     dest: /home/
+#     archive: no
+#     checksum: yes
+#     recursive: yes
