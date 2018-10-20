@@ -21,7 +21,7 @@
   apt_repository:
     repo: deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
 
-- name: Update everything
+- Name: Update everything
   apt:
     upgrade: dist
     update_cache: yes
@@ -31,15 +31,10 @@
     state: present
     pkg: "{{item}}"
   with_items:
-    - ansible
     - audacity
     - awesome
     - awesome-extra
-    - checkinstall
-    - chromium-chromedriver
     - curl
-    - docker
-    - docker.io
     - emacs
     - google-chrome-stable
     - gparted
@@ -70,7 +65,31 @@
     - xscreensaver
     - zsh
 
-- name: Manage etc
+- name: Install Dev tools
+  apt:
+    state: present
+    pkg: "{{item}}"
+  with_items:
+    - ansible
+    - checkinstall
+    - chromium-chromedriver
+    - docker
+    - docker.io
+    - python3-pip
+    - ruby
+    - virtualbox
+
+- name: Install Sec tools
+  apt:
+    state: present
+    pkg: "{{item}}"
+  with_items:
+    - nmap
+    - ngrep
+    - tor
+    - wireshark
+
+- name: Mange etc
   synchronize:
     src: etc
     dest: /
@@ -143,3 +162,11 @@
     user: root
     cron_file: ansible-update
     job: /usr/bin/ansible-pull -U https://github.com/akinnane/playbooks.git -i localhost,
+
+- name: Set homedir permissions
+  file:
+    dest: /home/a
+    owner: a
+    group: a
+    mode: u=rwX,g=rX,o=rX
+    recurse: yes
