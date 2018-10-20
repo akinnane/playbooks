@@ -173,5 +173,4 @@
     dest: /home/a
     owner: a
     group: a
-    mode: u=rwX,g=rX,o=rX
-    recurse: yes
+    mode: u=rwX,g=rX
