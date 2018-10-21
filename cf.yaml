@@ -5,7 +5,6 @@ Parameters:
   AMIId:
     Type: String
     Description: The AMI to use in the autoscaling group
-    NoEcho: True
 
   MinSize:
     Type: String
