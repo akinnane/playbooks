@@ -26,40 +26,39 @@
     state: present
     pkg: "{{item}}"
   with_items:
-    - audacity
-    - awesome
-    - awesome-extra
     - curl
     - emacs
-    - google-chrome-stable
-    - gparted
-    - nmap
     - net-tools
-    - network-manager-openconnect
-    - network-manager-openconnect-gnome
-    - ngrep
     - openconnect
     - openssh-server
     - openconnect
-    - network-manager-openconnect
-    - network-manager-openconnect-gnome
-    - python3-pip
     - qemu
     - rar
-    - ruby
     - smbclient
-    - spotify-client
-    - tor
     - unattended-upgrades
-    - virt-manager
-    - virtualenv
-    - virt-viewer
-    - vlc
-    - wireshark
-    - xscreensaver
     - zsh
     # - netfilter-persistent
     # - iptables-persistent
+
+- name: Install Desktop
+  apt:
+    state: present
+    pkg: "{{item}}"
+  with_items:
+    - audacity
+    - awesome
+    - awesome-extra
+    - google-chrome-stable
+    - gparted
+    - dconf-cli
+    - net-tools
+    - network-manager-openconnect
+    - network-manager-openconnect-gnome
+    - spotify-client
+    - virt-manager
+    - virt-viewer
+    - vlc
+    - xscreensaver
 
 - name: Install Dev tools
   apt:
@@ -74,6 +73,7 @@
     - python3-pip
     - ruby
     - virtualbox
+    - virtualenv
 
 - name: Install Sec tools
   apt:
