@@ -313,20 +313,12 @@ Resources:
                 Owner: AWS
                 Version: 1
                 Provider: CloudFormation
-              OutputArtifacts:
-                -
-                  Name: CreateStagingChangeSet
               Configuration:
                 ActionMode: CREATE_UPDATE
                 RoleArn: !GetAtt CloudFormationRole.Arn
                 StackName: !Sub "UAT-${AWS::StackName}"
                 TemplatePath: CFTemplates::cf.yaml
                 TemplateConfiguration: CFTemplates::cf-parameters.json
-                ParameterOverrides: !Sub |
-                  {
-                    "MinSize": "1",
-                    "MaxSize": "1"
-                  }
               RunOrder: 1
             -
               Name: CBTest
@@ -345,28 +337,15 @@ Resources:
           Actions:
             -
               Name: StopStaging
-              InputArtifacts:
-                -
-                  Name: CFTemplates
               ActionTypeId:
                 Category: Deploy
                 Owner: AWS
                 Version: 1
                 Provider: CloudFormation
-              OutputArtifacts:
-                -
-                  Name: StopStagingChangeSet
               Configuration:
-                ActionMode: CREATE_UPDATE
+                ActionMode: DELETE_ONLY
                 RoleArn: !GetAtt CloudFormationRole.Arn
                 StackName: !Sub "UAT-${AWS::StackName}"
-                TemplatePath: CFTemplates::cf.yaml
-                TemplateConfiguration: CFTemplates::cf-parameters.json
-                ParameterOverrides: !Sub |
-                  {
-                    "MinSize": "0",
-                    "MaxSize": "0"
-                  }
               RunOrder: 1
 
       ArtifactStore:
