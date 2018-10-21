@@ -121,7 +121,51 @@ Resources:
                 Resource:
                   - Fn::Sub: arn:aws:s3:::${ArtifactBucket}/*
                   - Fn::Sub: arn:aws:s3:::${ArtifactBucket}
-
+              -
+                Effect: "Allow"
+                Action:
+                  - "s3:PutObject"
+                  - "s3:GetObject"
+                  - "s3:ListBucket"
+                Resource:
+                  - Fn::Sub: arn:aws:s3:::${ArtifactBucket}/*
+                  - Fn::Sub: arn:aws:s3:::${ArtifactBucket}
+              -
+                Effect: "Allow"
+                Action:
+                  - "ec2:AttachVolume"
+                  - "ec2:AuthorizeSecurityGroupIngress"
+                  - "ec2:CopyImage"
+                  - "ec2:CreateImage"
+                  - "ec2:CreateKeypair"
+                  - "ec2:CreateSecurityGroup"
+                  - "ec2:CreateSnapshot"
+                  - "ec2:CreateTags"
+                  - "ec2:CreateVolume"
+                  - "ec2:DeleteKeyPair"
+                  - "ec2:DeleteSecurityGroup"
+                  - "ec2:DeleteSnapshot"
+                  - "ec2:DeleteVolume"
+                  - "ec2:DeregisterImage"
+                  - "ec2:DescribeImageAttribute"
+                  - "ec2:DescribeImages"
+                  - "ec2:DescribeInstances"
+                  - "ec2:DescribeRegions"
+                  - "ec2:DescribeSecurityGroups"
+                  - "ec2:DescribeSnapshots"
+                  - "ec2:DescribeSubnets"
+                  - "ec2:DescribeTags"
+                  - "ec2:DescribeVolumes"
+                  - "ec2:DetachVolume"
+                  - "ec2:ModifyImageAttribute"
+                  - "ec2:ModifyInstanceAttribute"
+                  - "ec2:ModifySnapshotAttribute"
+                  - "ec2:RegisterImage"
+                  - "ec2:RunInstances"
+                  - "ec2:StopInstances"
+                  - "ec2:TerminateInstances"
+                Resource:
+                  - "*"
 
   CloudFormationRole:
     Type: "AWS::IAM::Role"
@@ -157,18 +201,15 @@ Resources:
       Name: Playbooks-cfn
       Description: Validate and deploy playbooks
       ServiceRole: !GetAtt CodeBuildRole.Arn
-      Artifacts:
-        Type: no_artifacts
+      Source:
+        Type: CODEPIPELINE
       Environment:
         Type: LINUX_CONTAINER
         ComputeType: BUILD_GENERAL1_SMALL
         Image: aws/codebuild/python:3.6.5
-      Source:
-        Auth:
-          Type: oauth
-        Location: https://github.com/akinnane/playbooks.git
-        Type: github
-      TimeoutInMinutes: 5
+      Artifacts:
+        Type: CODEPIPELINE
+      TimeoutInMinutes: 30
 
 
   DeployPipeline:
@@ -193,14 +234,14 @@ Resources:
                 OAuthToken: !Ref GitHubToken
               OutputArtifacts:
                 -
-                  Name: PlaybooksOutput
+                  Name: PlaybooksRepo
         -
           Name: Validate
           Actions:
             -
               Name: CodeBuild
               InputArtifacts:
-                - Name: PlaybooksOutput
+                - Name: PlaybooksRepo
               ActionTypeId:
                 Category: Build
                 Owner: AWS
@@ -208,7 +249,7 @@ Resources:
                 Provider: CodeBuild
               OutputArtifacts:
                 -
-                  Name: CFNTemplateArtifact
+                  Name: CFTemplates
               Configuration:
                 ProjectName: !Ref PlaybookBuild
               RunOrder: 1
@@ -219,7 +260,7 @@ Resources:
               Name: CreateUATChangeSet
               InputArtifacts:
                 -
-                  Name: PlaybooksOutput
+                  Name: CFTemplates
               ActionTypeId:
                 Category: Deploy
                 Owner: AWS
