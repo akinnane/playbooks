@@ -234,14 +234,14 @@ Resources:
                 OAuthToken: !Ref GitHubToken
               OutputArtifacts:
                 -
-                  Name: PlaybooksRepo
+                  Name: github
         -
           Name: Validate
           Actions:
             -
               Name: CodeBuild
               InputArtifacts:
-                - Name: PlaybooksRepo
+                - Name: github
               ActionTypeId:
                 Category: Build
                 Owner: AWS
