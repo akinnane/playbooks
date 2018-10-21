@@ -43,8 +43,12 @@ Resources:
                   - "codebuild:StartBuild"
                   - "codebuild:BatchGetBuilds"
                 Resource:
-                  - !Sub "arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/${PlaybookBuild}"
-                  - !Sub "arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:build/${PlaybookBuild}:*"
+                  - !Sub "arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/${CBValidate}"
+                  - !Sub "arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:build/${CBValidate}:*"
+                  - !Sub "arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/${CBPress}"
+                  - !Sub "arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:build/${CBPress}:*"
+                  - !Sub "arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/${CBTest}"
+                  - !Sub "arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:build/${CBTest}:*"
               -
                 Effect: "Allow"
                 Action:
@@ -195,14 +199,30 @@ Resources:
                   - "*"
 
 
-  PlaybookBuild:
+  CBValidate:
     Type: AWS::CodeBuild::Project
     Properties:
-      Name: Playbooks-cfn
+      Description: Validate source
+      ServiceRole: !GetAtt CodeBuildRole.Arn
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: buildspec-validate.yml
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/python:3.6.5
+      Artifacts:
+        Type: CODEPIPELINE
+      TimeoutInMinutes: 5
+
+  CBPress:
+    Type: AWS::CodeBuild::Project
+    Properties:
       Description: Validate and deploy playbooks
       ServiceRole: !GetAtt CodeBuildRole.Arn
       Source:
         Type: CODEPIPELINE
+        BuildSpec: buildspec-press.yml
       Environment:
         Type: LINUX_CONTAINER
         ComputeType: BUILD_GENERAL1_SMALL
@@ -210,6 +230,22 @@ Resources:
       Artifacts:
         Type: CODEPIPELINE
       TimeoutInMinutes: 30
+
+  CBTest:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Description: Validate and deploy playbooks
+      ServiceRole: !GetAtt CodeBuildRole.Arn
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: buildspec-test.yml
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/python:3.6.5
+      Artifacts:
+        Type: CODEPIPELINE
+      TimeoutInMinutes: 5
 
 
   DeployPipeline:
@@ -239,7 +275,22 @@ Resources:
           Name: Validate
           Actions:
             -
-              Name: CodeBuild
+              Name: CBValidate
+              InputArtifacts:
+                - Name: github
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Version: 1
+                Provider: CodeBuild
+              Configuration:
+                ProjectName: !Ref CBValidate
+              RunOrder: 1
+        -
+          Name: PressAmi
+          Actions:
+            -
+              Name: PressAmi
               InputArtifacts:
                 - Name: github
               ActionTypeId:
@@ -251,10 +302,10 @@ Resources:
                 -
                   Name: CFTemplates
               Configuration:
-                ProjectName: !Ref PlaybookBuild
-              RunOrder: 1
+                ProjectName: !Ref CBPress
+              RunOrder: 2
         -
-          Name: Deploy
+          Name: Deploystaging
           Actions:
             -
               Name: CreateUATChangeSet
@@ -274,8 +325,13 @@ Resources:
                 ChangeSetName: UATCBChangeSet
                 RoleArn: !GetAtt CloudFormationRole.Arn
                 StackName: !Sub "UAT-${AWS::StackName}"
-                TemplatePath: PlaybooksOutput::cf.yml
-                TemplateConfiguration: PlaybooksOutput::cf-parameters.json
+                TemplatePath: CFTemplates::cf.yml
+                TemplateConfiguration: CFTemplates::cf-parameters.json
+                ParameterOverrides: !Sub |
+                  {
+                    "MinSize": "1",
+                    "MaxSize": "1"
+                  }
               RunOrder: 1
             -
               Name: ExecuteUATChangeSet
@@ -287,14 +343,68 @@ Resources:
                 Owner: AWS
                 Version: 1
                 Provider: CloudFormation
-              OutputArtifacts:
-                -
-                  Name: DeployedUAT
               Configuration:
                 ActionMode: CHANGE_SET_EXECUTE
                 ChangeSetName: UATCBChangeSet
                 StackName: !Sub "UAT-${AWS::StackName}"
               RunOrder: 2
+            -
+              Name: CBTest
+              InputArtifacts:
+                - Name: github
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Version: 1
+                Provider: CodeBuild
+              Configuration:
+                ProjectName: !Ref CBTest
+              RunOrder: 3
+        -
+          Name: StopStaging
+          Actions:
+            -
+              Name: StopStagingChangeSet
+              InputArtifacts:
+                -
+                  Name: CFTemplates
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Version: 1
+                Provider: CloudFormation
+              OutputArtifacts:
+                -
+                  Name: StopStagingUATChangeSet
+              Configuration:
+                ActionMode: CHANGE_SET_REPLACE
+                ChangeSetName: StopStagingChangeSet
+                RoleArn: !GetAtt CloudFormationRole.Arn
+                StackName: !Sub "UAT-${AWS::StackName}"
+                TemplatePath: CFTemplates::cf.yml
+                TemplateConfiguration: CFTemplates::cf-parameters.json
+                ParameterOverrides: !Sub |
+                  {
+                    "MinSize": "0",
+                    "MaxSize": "0"
+                  }
+              RunOrder: 1
+            -
+              Name: ExecuteStopChangeSet
+              InputArtifacts:
+                -
+                  Name: StopStagingUATChangeSet
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Version: 1
+                Provider: CloudFormation
+              Configuration:
+                ActionMode: CHANGE_SET_EXECUTE
+                ChangeSetName: StopStagingChangeSet
+                StackName: !Sub "UAT-${AWS::StackName}"
+              RunOrder: 2
+
 
       ArtifactStore:
         Type: S3
