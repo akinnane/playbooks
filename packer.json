@@ -8,7 +8,7 @@
             "region": "{{user `aws_region`}}",
             "instance_type": "t2.micro",
             "ssh_username": "ubuntu",
-            "ami_name": "TEST-{{isotime}}",
+            "ami_name": "TEST-{{isotime | clean_ami_name}}",
             "ami_description": "Customized Ubuntu build",
             "associate_public_ip_address": "true",
             "source_ami_filter": {
