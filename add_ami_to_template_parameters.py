@@ -9,7 +9,7 @@ ami_id = manifest['builds'][0]['artifact_id'].split(':')[1]
 
 
 # Update the cf-parameters.json
-with open('cf-parameters.json', 'r+w') as parameters_file:
+with open('cf-parameters.json', 'r+') as parameters_file:
     parameters = json.load(parameters_file)
 
     amiid_index = (
