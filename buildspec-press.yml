@@ -14,9 +14,10 @@ phases:
   post_build:
     commands:
       - python add_ami_to_template_parameters.py
+      - sleep 60s
 
 artifacts:
   files:
     - cf.yaml
     - cf-parameters.json
-  name: cf
+    - manifest.json
