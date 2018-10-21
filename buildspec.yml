@@ -17,11 +17,11 @@ phases:
 
   build:
     commands:
-      - ./packer build packer.json
+      - echo ./packer build packer.json
 
   post_build:
     commands:
-      - ./add_ami_to_template_parameters.py
+      - echo ./add_ami_to_template_parameters.py
 
 artifacts:
   files:
