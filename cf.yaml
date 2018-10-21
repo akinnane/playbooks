@@ -1,0 +1,73 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+
+  AMIId:
+    Type: String
+    Description: The AMI to use in the autoscaling group
+    NoEcho: True
+
+  MinSize:
+    Type: String
+    Description: Minimum size of the autoscaling group
+
+  MaxSize:
+    Type: String
+    Description: Maximum size of the autoscaling group
+
+  SubnetA:
+    Type: String
+    Description: A Subnet to launch in
+
+  SubnetB:
+    Type: String
+    Description: A Subnet to launch in
+
+  SubnetC:
+    Type: String
+    Description: A Subnet to launch in
+
+  KeyName:
+    Type: String
+    Description: The Keyname to use
+
+Resources:
+
+  LaunchConfig:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      ImageId: !Ref AMIId
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -x
+          apt-get -y install python-setuptools
+          easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
+          echo "TEST ME"
+          /usr/local/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource AutoScalingGroup --region ${AWS::Region}
+
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    CreationPolicy:
+      ResourceSignal:
+        Count: 1
+        Timeout: PT5M
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: True
+    Properties:
+      VPCZoneIdentifier:
+        - !Ref SubnetA
+        - !Ref SubnetB
+        - !Ref SubnetC
+      LaunchConfigurationName:
+        Ref: LaunchConfig
+      MinSize: 1
+      MaxSize: 1
+      HealthCheckType: EC2
+      HealthCheckGracePeriod: 300
+      Tags:
+      - Key: foo
+        Value: bar
+        PropagateAtLaunch: true
