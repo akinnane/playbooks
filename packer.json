@@ -6,7 +6,7 @@
         {
             "type": "amazon-ebs",
             "region": "{{user `aws_region`}}",
-            "instance_type": "c5.large",
+            "instance_type": "t2.micro",
             "ssh_username": "ubuntu",
             "ssh_keypair_name": "grrrr",
             "ssh_private_key_file": "grrrr.pem",
@@ -34,9 +34,21 @@
                 "sleep 30",
                 "sudo apt update",
                 "sudo apt upgrade -y",
-                "sudo apt install -y ansible git",
-                "sudo ansible-pull -vv -U https://github.com/akinnane/playbooks.git -i localhost, localhost.yml"
+                "sudo apt install -y ansible git"
             ]
+        },
+        {
+            "type": "shell",
+            "expect_disconnect": true,
+            "inline": [
+                "sudo ansible-pull -U https://github.com/akinnane/playbooks.git -i localhost, localhost.yml"
+            ]
+        },
+    ],
+    "post-processors": [
+        {
+            "type": "manifest",
+            "output": "manifest.json",
         }
     ]
 }
