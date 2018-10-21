@@ -19,6 +19,10 @@ phases:
     commands:
       - ./packer build packer.json
 
+  post_build:
+    commands:
+      - ./add_ami_to_template_parameters.py
+
 artifacts:
   files:
     - cf.yml
