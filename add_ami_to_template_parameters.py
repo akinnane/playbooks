@@ -5,7 +5,7 @@ import json
 manifest = {}
 with open('manifest.json') as manifest_file:
     manifest = json.load(manifest_file)
-ami_id = manifest['builds'][0]['artifact_id'].split(':')[1]
+ami_id = manifest['builds'][-1]['artifact_id'].split(':')[1]
 print(manifest)
 
 # Update the cf-parameters.json
