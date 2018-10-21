@@ -305,10 +305,10 @@ Resources:
                 ProjectName: !Ref CBPress
               RunOrder: 2
         -
-          Name: Deploystaging
+          Name: DeployStaging
           Actions:
             -
-              Name: CreateUATChangeSet
+              Name: CreateStagingChangeSet
               InputArtifacts:
                 -
                   Name: CFTemplates
@@ -319,13 +319,13 @@ Resources:
                 Provider: CloudFormation
               OutputArtifacts:
                 -
-                  Name: CreatedUATChangeSet
+                  Name: CreateStagingChangeSet
               Configuration:
                 ActionMode: CHANGE_SET_REPLACE
-                ChangeSetName: UATCBChangeSet
+                ChangeSetName: StagingChangeSet
                 RoleArn: !GetAtt CloudFormationRole.Arn
                 StackName: !Sub "UAT-${AWS::StackName}"
-                TemplatePath: CFTemplates::cf.yml
+                TemplatePath: CFTemplates::cf.yaml
                 TemplateConfiguration: CFTemplates::cf-parameters.json
                 ParameterOverrides: !Sub |
                   {
@@ -334,10 +334,10 @@ Resources:
                   }
               RunOrder: 1
             -
-              Name: ExecuteUATChangeSet
+              Name: ExecuteStagingChangeSet
               InputArtifacts:
                 -
-                  Name: CreatedUATChangeSet
+                  Name: CreateStagingChangeSet
               ActionTypeId:
                 Category: Deploy
                 Owner: AWS
@@ -345,7 +345,7 @@ Resources:
                 Provider: CloudFormation
               Configuration:
                 ActionMode: CHANGE_SET_EXECUTE
-                ChangeSetName: UATCBChangeSet
+                ChangeSetName: StagingChangeSet
                 StackName: !Sub "UAT-${AWS::StackName}"
               RunOrder: 2
             -
@@ -375,13 +375,13 @@ Resources:
                 Provider: CloudFormation
               OutputArtifacts:
                 -
-                  Name: StopStagingUATChangeSet
+                  Name: StopStagingChangeSet
               Configuration:
                 ActionMode: CHANGE_SET_REPLACE
                 ChangeSetName: StopStagingChangeSet
                 RoleArn: !GetAtt CloudFormationRole.Arn
                 StackName: !Sub "UAT-${AWS::StackName}"
-                TemplatePath: CFTemplates::cf.yml
+                TemplatePath: CFTemplates::cf.yaml
                 TemplateConfiguration: CFTemplates::cf-parameters.json
                 ParameterOverrides: !Sub |
                   {
@@ -393,7 +393,7 @@ Resources:
               Name: ExecuteStopChangeSet
               InputArtifacts:
                 -
-                  Name: StopStagingUATChangeSet
+                  Name: StopStagingChangeSet
               ActionTypeId:
                 Category: Deploy
                 Owner: AWS
