@@ -61,20 +61,10 @@ Resources:
               -
                 Effect: "Allow"
                 Action:
-                  - "cloudformation:CreateChangeSet"
-                  - "cloudformation:CreateStack"
-                  - "cloudformation:CreateUploadBucket"
-                  - "cloudformation:DeleteStack"
-                  - "cloudformation:DeleteChangeSet"
-                  - "cloudformation:Describe*"
-                  - "cloudformation:List*"
-                  - "cloudformation:UpdateStack"
-                  - "cloudformation:ValidateTemplate"
-                  - "cloudformation:ExecuteChangeSet"
+                  - "cloudformation:*"
                 Resource:
-                  - Fn::Sub: arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/Test-${AWS::StackName}*
                   - Fn::Sub: arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/UAT-${AWS::StackName}*
-                  - Fn::Sub: arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/Prod-${AWS::StackName}*
+                  - Fn::Sub: arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/UAT-${AWS::StackName}/*
               -
                 Effect: "Allow"
                 Action:
