@@ -197,7 +197,13 @@ Resources:
                   - "s3:*"
                 Resource:
                   - "*"
-
+              -
+                Effect: "Allow"
+                Action:
+                  - "autoscaling:*"
+                  - "ec2:*"
+                Resource:
+                  - "*"
 
   CBValidate:
     Type: AWS::CodeBuild::Project
