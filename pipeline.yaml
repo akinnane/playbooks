@@ -7,12 +7,15 @@ Parameters:
     Description: GitHub repository OAuth token - USE PARAMETER STORE
     NoEcho: True
 
-  ArtifactS3Location:
-    Type: String
-    Description: S3 bucket to store artifact
-
-
 Resources:
+
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
 
   CodePipelineRole:
     Type: "AWS::IAM::Role"
@@ -49,8 +52,8 @@ Resources:
                   - "s3:GetObject"
                   - "s3:ListBucket"
                 Resource:
-                  - Fn::Sub: arn:aws:s3:::${ArtifactS3Location}/*
-                  - Fn::Sub: arn:aws:s3:::${ArtifactS3Location}
+                  - Fn::Sub: arn:aws:s3:::${ArtifactBucket}/*
+                  - Fn::Sub: arn:aws:s3:::${ArtifactBucket}
               -
                 Effect: "Allow"
                 Action:
@@ -116,8 +119,8 @@ Resources:
                   - "s3:GetObject"
                   - "s3:ListBucket"
                 Resource:
-                  - Fn::Sub: arn:aws:s3:::${ArtifactS3Location}/*
-                  - Fn::Sub: arn:aws:s3:::${ArtifactS3Location}
+                  - Fn::Sub: arn:aws:s3:::${ArtifactBucket}/*
+                  - Fn::Sub: arn:aws:s3:::${ArtifactBucket}
 
 
   CloudFormationRole:
@@ -229,9 +232,9 @@ Resources:
                 ActionMode: CHANGE_SET_REPLACE
                 ChangeSetName: UATCBChangeSet
                 RoleArn: !GetAtt CloudFormationRole.Arn
-                StackName:
-                  Fn::Sub: UAT-${AWS::StackName}
+                StackName: !Sub "UAT-${AWS::StackName}"
                 TemplatePath: PlaybooksOutput::cf.yml
+                TemplateConfiguration: PlaybooksOutput::cf-parameters.json
               RunOrder: 1
             -
               Name: ExecuteUATChangeSet
@@ -249,10 +252,9 @@ Resources:
               Configuration:
                 ActionMode: CHANGE_SET_EXECUTE
                 ChangeSetName: UATCBChangeSet
-                StackName:
-                  Fn::Sub: UAT-${AWS::StackName}
+                StackName: !Sub "UAT-${AWS::StackName}"
               RunOrder: 2
 
       ArtifactStore:
         Type: S3
-        Location: !Ref ArtifactS3Location
+        Location: !Ref ArtifactBucket
