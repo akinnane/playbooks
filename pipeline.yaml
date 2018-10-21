@@ -201,16 +201,13 @@ Resources:
       Name: Playbooks-cfn
       Description: Validate and deploy playbooks
       ServiceRole: !GetAtt CodeBuildRole.Arn
-      Artifacts:
+      Source:
         Type: CODEPIPELINE
       Environment:
         Type: LINUX_CONTAINER
         ComputeType: BUILD_GENERAL1_SMALL
         Image: aws/codebuild/python:3.6.5
-      Source:
-        Auth:
-          Type: oauth
-        Location: https://github.com/akinnane/playbooks.git
+      Artifacts:
         Type: CODEPIPELINE
       TimeoutInMinutes: 30
 
@@ -237,14 +234,14 @@ Resources:
                 OAuthToken: !Ref GitHubToken
               OutputArtifacts:
                 -
-                  Name: PlaybooksOutput
+                  Name: PlaybooksRepo
         -
           Name: Validate
           Actions:
             -
               Name: CodeBuild
               InputArtifacts:
-                - Name: PlaybooksOutput
+                - Name: PlaybooksRepo
               ActionTypeId:
                 Category: Build
                 Owner: AWS
@@ -252,7 +249,7 @@ Resources:
                 Provider: CodeBuild
               OutputArtifacts:
                 -
-                  Name: CFNTemplateArtifact
+                  Name: CFTemplates
               Configuration:
                 ProjectName: !Ref PlaybookBuild
               RunOrder: 1
@@ -263,7 +260,7 @@ Resources:
               Name: CreateUATChangeSet
               InputArtifacts:
                 -
-                  Name: PlaybooksOutput
+                  Name: CFTemplates
               ActionTypeId:
                 Category: Deploy
                 Owner: AWS
