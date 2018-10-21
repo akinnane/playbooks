@@ -12,10 +12,7 @@ ami_id = manifest['builds'][0]['artifact_id'].split(':')[1]
 with open('cf-parameters.json', 'r+') as parameters_file:
     parameters = json.load(parameters_file)
 
-    amiid_index = (
-        i for i, v in enumerate(parameters) if 'AMIId' in v['ParameterKey']
-    )
-    parameters[next(amiid_index)]['ParameterValue'] = ami_id
+    parameters['Parameters']['AMIId'] = ami_id
 
     parameters_file.seek(0)
     json.dump(parameters, parameters_file)

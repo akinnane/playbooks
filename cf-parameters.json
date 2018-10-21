@@ -1,1 +1,23 @@
-[{"ParameterValue": "ami-0a56d394f1b4e0c5d", "ParameterKey": "AMIId"}, {"ParameterValue": "1", "ParameterKey": "MinSize"}, {"ParameterValue": "1", "ParameterKey": "MaxSize"}, {"ParameterValue": "subnet-b5812ffd", "ParameterKey": "SubnetA"}, {"ParameterValue": "subnet-7ac9d221", "ParameterKey": "SubnetB"}, {"ParameterValue": "subnet-c462bba2", "ParameterKey": "SubnetC"}, {"ParameterValue": "grrrr", "ParameterKey": "KeyName"}]
+{
+    "Parameters": {
+        "AMIId": "ami-0a56d394f1b4e0c5d",
+        "MinSize": "1",
+        "MaxSize": "1",
+        "SubnetA": "subnet-b5812ffd",
+        "SubnetB": "subnet-7ac9d221",
+        "SubnetC": "subnet-c462bba2",
+        "KeyName": "grrrr"
+    },
+    "Tags": {
+        "foo": "bar"
+    },
+    "StackPolicy": {
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": "*",
+                "Resource": "*"
+            }
+        ]
+    }
+}
