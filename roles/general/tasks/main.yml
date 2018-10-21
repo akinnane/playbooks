@@ -70,7 +70,9 @@
     - chromium-chromedriver
     - docker
     - docker.io
+    - python-setuptools
     - python3-pip
+    - python-pip
     - ruby
     - virtualbox
     - virtualenv
@@ -173,3 +175,7 @@
     owner: a
     group: a
     mode: u=rwX,g=rX
+
+- name: aws cfn bootstrap
+  pip:
+    name: https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
