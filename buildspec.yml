@@ -22,4 +22,5 @@ phases:
 artifacts:
   files:
     - cf.yml
+    - cf-parameters.json
   name: cf
