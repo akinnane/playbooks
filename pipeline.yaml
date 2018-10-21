@@ -202,7 +202,7 @@ Resources:
       Description: Validate and deploy playbooks
       ServiceRole: !GetAtt CodeBuildRole.Arn
       Artifacts:
-        Type: no_artifacts
+        Type: CODEPIPELINE
       Environment:
         Type: LINUX_CONTAINER
         ComputeType: BUILD_GENERAL1_SMALL
@@ -211,8 +211,8 @@ Resources:
         Auth:
           Type: oauth
         Location: https://github.com/akinnane/playbooks.git
-        Type: github
-      TimeoutInMinutes: 5
+        Type: CODEPIPELINE
+      TimeoutInMinutes: 30
 
 
   DeployPipeline:
