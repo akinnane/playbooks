@@ -21,7 +21,7 @@ phases:
 
   post_build:
     commands:
-      - ./add_ami_to_template_parameters.py
+      - python add_ami_to_template_parameters.py
 
 artifacts:
   files:
