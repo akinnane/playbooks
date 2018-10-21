@@ -327,8 +327,7 @@ Resources:
                 -
                   Name: CreateStagingChangeSet
               Configuration:
-                ActionMode: CHANGE_SET_REPLACE
-                ChangeSetName: StagingChangeSet
+                ActionMode: CREATE_UPDATE
                 RoleArn: !GetAtt CloudFormationRole.Arn
                 StackName: !Sub "UAT-${AWS::StackName}"
                 TemplatePath: CFTemplates::cf.yaml
@@ -340,21 +339,6 @@ Resources:
                   }
               RunOrder: 1
             -
-              Name: ExecuteStagingChangeSet
-              InputArtifacts:
-                -
-                  Name: CreateStagingChangeSet
-              ActionTypeId:
-                Category: Deploy
-                Owner: AWS
-                Version: 1
-                Provider: CloudFormation
-              Configuration:
-                ActionMode: CHANGE_SET_EXECUTE
-                ChangeSetName: StagingChangeSet
-                StackName: !Sub "UAT-${AWS::StackName}"
-              RunOrder: 2
-            -
               Name: CBTest
               InputArtifacts:
                 - Name: github
@@ -365,12 +349,12 @@ Resources:
                 Provider: CodeBuild
               Configuration:
                 ProjectName: !Ref CBTest
-              RunOrder: 3
+              RunOrder: 2
         -
           Name: StopStaging
           Actions:
             -
-              Name: StopStagingChangeSet
+              Name: StopStaging
               InputArtifacts:
                 -
                   Name: CFTemplates
@@ -383,8 +367,7 @@ Resources:
                 -
                   Name: StopStagingChangeSet
               Configuration:
-                ActionMode: CHANGE_SET_REPLACE
-                ChangeSetName: StopStagingChangeSet
+                ActionMode: CREATE_UPDATE
                 RoleArn: !GetAtt CloudFormationRole.Arn
                 StackName: !Sub "UAT-${AWS::StackName}"
                 TemplatePath: CFTemplates::cf.yaml
@@ -395,22 +378,6 @@ Resources:
                     "MaxSize": "0"
                   }
               RunOrder: 1
-            -
-              Name: ExecuteStopChangeSet
-              InputArtifacts:
-                -
-                  Name: StopStagingChangeSet
-              ActionTypeId:
-                Category: Deploy
-                Owner: AWS
-                Version: 1
-                Provider: CloudFormation
-              Configuration:
-                ActionMode: CHANGE_SET_EXECUTE
-                ChangeSetName: StopStagingChangeSet
-                StackName: !Sub "UAT-${AWS::StackName}"
-              RunOrder: 2
-
 
       ArtifactStore:
         Type: S3
