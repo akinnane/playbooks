@@ -54,6 +54,7 @@
     - net-tools
     - network-manager-openconnect
     - network-manager-openconnect-gnome
+    - transmission-gtk
     - spotify-client
     - virt-manager
     - virt-viewer
