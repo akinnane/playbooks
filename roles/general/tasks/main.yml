@@ -100,8 +100,8 @@
 
 - name: Update GDM CSS
   file:
-    path: /etc/alternatives/gdm3.css
     src: /etc/gdm3/gdm3.css
+    dest: /etc/alternatives/gdm3.css
     owner: root
     group: root
     state: link
