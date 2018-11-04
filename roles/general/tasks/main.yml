@@ -175,6 +175,7 @@
     owner: a
     group: a
     mode: u=rwX,g=rX
+    recurse: yes
 
 - name: aws cfn bootstrap
   pip:
