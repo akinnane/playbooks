@@ -161,12 +161,6 @@
     enabled: no
     state: stopped
 
-- name: avahi-daemon
-  systemd:
-    name: avahi-daemon
-    enabled: no
-    state: stopped
-
 # - name: Schedule automatic ansible updates
 #   cron:
 #     name: ansible
