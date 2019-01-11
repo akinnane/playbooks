@@ -37,8 +37,8 @@
     - smbclient
     - unattended-upgrades
     - zsh
-    # - netfilter-persistent
-    # - iptables-persistent
+    - netfilter-persistent
+    - iptables-persistent
 
 - name: Install Desktop
   apt:
@@ -51,6 +51,8 @@
     - google-chrome-stable
     - gparted
     - dconf-cli
+    - fancontrol
+    - lm-sensors
     - net-tools
     - network-manager-openconnect
     - network-manager-openconnect-gnome
@@ -101,7 +103,7 @@
     recursive: yes
   notify:
     - dconf-db
-#    - netfilter-persistent
+    - netfilter-persistent
 
 - name: Update GDM CSS
   file:
@@ -115,7 +117,6 @@
   user:
     name: a
     shell: /bin/zsh
-    uid: 11111
     groups: adm,sudo,plugdev,libvirt,libvirt-qemu,docker
 
 - name: Manage home .files
@@ -133,7 +134,7 @@
 
 - name: emacs prelude
   git:
-    repo: https://github.com/akinnane/prelude.git
+    repo: https://github.com/bbatsov/prelude.git
     dest: /home/a/.emacs.d
 
 - name: ssh-server
@@ -142,17 +143,17 @@
     enabled: yes
     state: started
 
-# - name: netfilter-persistent
-#   systemd:
-#     name: netfilter-persistent
-#     enabled: yes
-#     state: started
+- name: netfilter-persistent
+  systemd:
+    name: netfilter-persistent
+    enabled: yes
+    state: started
 
-# - name: cups
-#   systemd:
-#     name: cups
-#     enabled: no
-#     state: stopped
+- name: cups
+  systemd:
+    name: cups
+    enabled: no
+    state: stopped
 
 - name: tor
   systemd:
@@ -160,28 +161,24 @@
     enabled: no
     state: stopped
 
-# - name: cups
-#   systemd:
-#     name: avahi-daemon
-#     enabled: no
-#    state: stopped
+- name: avahi-daemon
+  systemd:
+    name: avahi-daemon
+    enabled: no
+    state: stopped
 
-- name: Schedule automatic ansible updates
-  cron:
-    name: ansible
-    minute: 0
-    user: root
-    cron_file: ansible-update
-    job: /usr/bin/ansible-pull -U https://github.com/akinnane/playbooks.git -i localhost,
+# - name: Schedule automatic ansible updates
+#   cron:
+#     name: ansible
+#     minute: 0
+#     user: root
+#     cron_file: ansible-update
+#     job: /usr/bin/ansible-pull -U https://github.com/akinnane/playbooks.git -i localhost,
 
-- name: Set homedir permissions
-  file:
-    dest: /home/a
-    owner: a
-    group: a
-    mode: u=rwX,g=rX
-    recurse: yes
-
-- name: aws cfn bootstrap
-  pip:
-    name: https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
+# - name: Set homedir permissions
+#   file:
+#     dest: /home/a
+#     owner: a
+#     group: a
+#     mode: u=rwX, g=, o=
+    # recurse: yes
