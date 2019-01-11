@@ -149,11 +149,11 @@
     enabled: yes
     state: started
 
-- name: cups
-  systemd:
-    name: cups
-    enabled: no
-    state: stopped
+# - name: cups
+#   systemd:
+#     name: cups
+#     enabled: no
+#     state: stopped
 
 - name: tor
   systemd:
