@@ -110,7 +110,7 @@
     - kismet
     - rkhunter
     - clamav
-    - ettercap
+    - ettercap-graphical
     - mtr
     - hping3
     - ngrep
