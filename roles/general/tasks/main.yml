@@ -125,7 +125,7 @@
 - name: Security Repos
   git:
     repo: "{{item}}.git"
-    dest: "/home/a/github/security/tools/{{item.split("/")[-1]}}"
+    dest: "/home/a/github/security/tools/{{item.split('/')[-1]}}"
   with_items:
     - https://github.com/mitmproxy/mitmproxy
     - https://github.com/zricethezav/gitleaks
@@ -142,7 +142,7 @@
 - name: Security - Docs
   git:
     repo: "{{item}}.git"
-    dest: "/home/a/github/security/docs/{{item.split("/")[-1]}}"
+    dest: "/home/a/github/security/docs/{{item.split('/')[-1]}}"
   with_items:
     - https://github.com/Hack-with-Github/Awesome-Hacking
     - https://github.com/drduh/macOS-Security-and-Privacy-Guide
@@ -166,7 +166,7 @@
 - name: Sec - WiFi
   git:
     repo: "{{item}}"
-    dest: "/home/a/github/security/wifi/{{item.split("/")[-1]}}"
+    dest: "/home/a/github/security/wifi/{{item.split('/')[-1]}}"
   with_items:
     - https://github.com/wifiphisher/wifiphisher
 
