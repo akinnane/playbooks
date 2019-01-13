@@ -73,7 +73,7 @@
     - virt-manager
     - virt-viewer
     - qemu-system-x86
-    - qemu-system-gui-gui
+    - qemu-system-gui
     - ovmf
 
 - name: Install Dev tools
