@@ -93,6 +93,27 @@
     - ngrep
     - tor
     - wireshark
+    - radare2
+    - zmap
+    - masscan
+    - etherape
+    - kismet
+    - rkhunter
+    - clamav
+    - ettercap
+    - mtr
+    - hping3
+    - ngrep
+    - joh
+    - tcptrace
+    - netdude
+    - tcprelay
+    - dsniff
+    - scapy
+    - nbtscan
+    - aircrack-ng
+    - hashcat
+    - bro
 
 - name: Mange etc
   synchronize:
