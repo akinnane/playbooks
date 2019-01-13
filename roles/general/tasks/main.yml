@@ -106,7 +106,6 @@
     - ngrep
     - john
     - tcptrace
-    - netdude
     - tcprelay
     - dsniff
     - scapy
