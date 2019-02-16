@@ -1,3 +1,2 @@
-packer
-venv
 *.pem
+*.retry
