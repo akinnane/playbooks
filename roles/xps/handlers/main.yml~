@@ -1,0 +1,7 @@
+- name: iptables-persistent
+  service:
+    name: netfilter-persistent
+    state: restarted
+
+- name: dconf-db
+  command: dconf update

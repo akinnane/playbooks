@@ -1,0 +1,32 @@
+- name: Remove xps specific packages
+  apt:
+    state: absent
+    pkg: "{{item}}"
+  with_items:
+    - xserver-xorg-input-synaptics
+    - libdrm-nouveau2
+    - xserver-xorg-video-nouveau
+    
+- name: Install base packages
+  apt:
+    state: present
+    pkg: "{{item}}"
+  with_items:
+    - xserver-xorg-input-libinput
+    - nvidia-driver-390
+
+- name: Manage etc
+  synchronize:
+    src: etc
+    dest: /
+    checksum: yes
+    archive: no
+    recursive: yes
+
+# - name: Manage home .files
+#   synchronize:
+#     src: home/a
+#     dest: /home/
+#     archive: no
+#     checksum: yes
+#     recursive: yes
