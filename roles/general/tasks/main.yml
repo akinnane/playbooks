@@ -266,10 +266,7 @@
     enabled: yes
     state: started
 
-
-
-
-- name: cups
+- name: Stop services
   systemd:
     name: "{{item}}"
     enabled: no
@@ -282,6 +279,7 @@
   - colord
   - cups-browsed
   - ModemManager
+  - postfix
 
 - name: tor
   systemd:
