@@ -24,8 +24,7 @@
 - name: Install base packages
   apt:
     state: present
-    pkg: "{{item}}"
-  with_items:
+    pkg:
     - curl
     - emacs
     - iptables-persistent
@@ -43,8 +42,7 @@
 - name: Install Desktop
   apt:
     state: present
-    pkg: "{{item}}"
-  with_items:
+    pkg:
     - awesome
     - awesome-extra
     - dconf-cli
@@ -62,8 +60,7 @@
 - name: Install Desktop media
   apt:
     state: present
-    pkg: "{{item}}"
-  with_items:
+    pkg:
     - audacity
     - gimp
     - gstreamer1.0-libav
@@ -79,8 +76,7 @@
 - name: Install power tools
   apt:
     state: present
-    pkg: "{{item}}"
-  with_items:
+    pkg:
     - fancontrol
     - i7z
     - lm-sensors
@@ -92,10 +88,9 @@
 - name: Install virtualisation tools
   apt:
     state: present
-    pkg: "{{item}}"
-  with_items:
+    pkg:
     - ovmf
-    - qemu-system-gui
+    # - qemu-system-gui
     - qemu-system-x86
     - virt-manager
     - virtualbox
@@ -105,8 +100,7 @@
 - name: Install Dev tools
   apt:
     state: present
-    pkg: "{{item}}"
-  with_items:
+    pkg:
     - ansible
     - build-essential
     - checkinstall
@@ -136,14 +130,13 @@
 - name: Install Sec tools
   apt:
     state: present
-    pkg: "{{item}}"
-  with_items:
+    pkg:
     - aircrack-ng
     - clamav
     - dsniff
     - etherape
     - ettercap-graphical
-    - hashcat
+    - hashcat-nvidia
     - hping3
     - john
     - kismet
