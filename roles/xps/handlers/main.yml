@@ -1,0 +1,5 @@
+- name: update-grub2
+  command: update-grub2
+
+- name: dconf-db
+  command: dconf update

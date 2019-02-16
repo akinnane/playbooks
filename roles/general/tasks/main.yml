@@ -28,53 +28,79 @@
   with_items:
     - curl
     - emacs
+    - iptables-persistent
+    - netfilter-persistent
     - net-tools
     - openconnect
-    - openssh-server
     - openconnect
+    - openssh-server
     - qemu
     - rar
     - smbclient
     - unattended-upgrades
     - zsh
-    - netfilter-persistent
-    - iptables-persistent
 
 - name: Install Desktop
   apt:
     state: present
     pkg: "{{item}}"
   with_items:
-    - audacity
     - awesome
     - awesome-extra
+    - dconf-cli
     - google-chrome-stable
     - gparted
-    - dconf-cli
-    - fancontrol
-    - lm-sensors
     - net-tools
     - network-manager-openconnect
     - network-manager-openconnect-gnome
     - pavucontrol
     - pwgen
-    - pm-utils
     - transmission-gtk
     - tree
+    - xscreensaver
+
+- name: Install Desktop media
+  apt:
+    state: present
+    pkg: "{{item}}"
+  with_items:
+    - audacity
+    - gimp
+    - gstreamer1.0-libav
+    - gstreamer1.0-vaapi
+    - libva2
     - spotify-client
+    - ubuntu-restricted-extras
+    - va-driver-all
+    - vainfo
     - vlc
     - xscreensaver
+
+- name: Install power tools
+  apt:
+    state: present
+    pkg: "{{item}}"
+  with_items:
+    - fancontrol
+    - i7z
+    - lm-sensors
+    - pm-utils
+    - powerstat
+    - powertop
+    - tlp
 
 - name: Install virtualisation tools
   apt:
     state: present
     pkg: "{{item}}"
   with_items:
-    - virt-manager
-    - virt-viewer
-    - qemu-system-x86
-    - qemu-system-gui
     - ovmf
+    - qemu-system-gui
+    - qemu-system-x86
+    - virt-manager
+    - virtualbox
+    - virtualenv
+    - virt-viewer
 
 - name: Install Dev tools
   apt:
@@ -82,86 +108,100 @@
     pkg: "{{item}}"
   with_items:
     - ansible
+    - build-essential
     - checkinstall
     - chromium-chromedriver
     - docker
     - docker.io
-    - python-setuptools
+    - libbz2-dev
+    - libpcap-dev
+    - yasm
+    - libgmp-dev
+    - libpcap-dev
+    - libnss3-dev
+    - libkrb5-dev
+    - pkg-config
+    - libbz2-dev
+    - zlib1g-dev
+    - nvidia-cuda-toolkit
+    - nvidia-opencl-dev
+    - libssl-dev
     - python3-pip
     - python-pip
+    - python-setuptools
     - ruby
-    - virtualbox
-    - virtualenv
     - strace
+    - zlib1g-dev
 
 - name: Install Sec tools
   apt:
     state: present
     pkg: "{{item}}"
   with_items:
-    - nmap
+    - aircrack-ng
+    - clamav
+    - dsniff
+    - etherape
+    - ettercap-graphical
+    - hashcat
+    - hping3
+    - john
+    - kismet
+    - masscan
+    - mtr
+    - nbtscan
     - ngrep
+    - ngrep
+    - nmap
+    - radare2
+    - rkhunter
+    - scapy
+    - tcptrace
     - tor
     - wireshark
-    - radare2
     - zmap
-    - masscan
-    - etherape
-    - kismet
-    - rkhunter
-    - clamav
-    - ettercap-graphical
-    - mtr
-    - hping3
-    - ngrep
-    - john
-    - tcptrace
-    - dsniff
-    - scapy
-    - nbtscan
-    - aircrack-ng
-    - hashcat
 
 - name: Security Repos
   git:
     repo: "{{item}}.git"
     dest: "/home/a/github/security/tools/{{item.split('/')[-1]}}"
   with_items:
-    - https://github.com/mitmproxy/mitmproxy
-    - https://github.com/zricethezav/gitleaks
-    - https://github.com/wpscanteam/wpscan
     - https://github.com/bettercap/bettercap
+    - https://github.com/duo-labs/cloudmapper
     - https://github.com/gophish/gophish
-    - https://github.com/NullArray/AutoSploit
-    - https://github.com/secdev/scapy
     - https://github.com/jofpin/trape
     - https://github.com/michenriksen/gitrob
+    - https://github.com/mitmproxy/mitmproxy
+    - https://github.com/NullArray/AutoSploit
     - https://github.com/samratashok/nishang
-    - https://github.com/duo-labs/cloudmapper
+    - https://github.com/secdev/scapy
+    - https://github.com/wpscanteam/wpscan
+    - https://github.com/zricethezav/gitleaks
+    - https://github.com/hashcat/hashcat
+    - https://github.com/magnumripper/JohnTheRipper
 
 - name: Security - Docs
   git:
     repo: "{{item}}.git"
     dest: "/home/a/github/security/docs/{{item.split('/')[-1]}}"
   with_items:
-    - https://github.com/Hack-with-Github/Awesome-Hacking
-    - https://github.com/drduh/macOS-Security-and-Privacy-Guide
-    - https://github.com/Developer-Y/cs-video-courses
-    - https://github.com/shieldfy/API-Security-Checklist
-    - https://github.com/trimstray/the-book-of-secret-knowledge
-    - https://github.com/trimstray/test-your-sysadmin-skills
-    - https://github.com/sbilly/awesome-security
-    - https://github.com/vinta/awesome-python
-    - https://github.com/forter/security-101-for-saas-startups
-    - https://github.com/paragonie/awesome-appsec
     - https://github.com/apsdehal/awesome-ctf
+    - https://github.com/Developer-Y/cs-video-courses
+    - https://github.com/drduh/macOS-Security-and-Privacy-Guide
     - https://github.com/drduh/YubiKey-Guide
-    - https://github.com/PaulSec/awesome-sec-talks
+    - https://github.com/forter/security-101-for-saas-startups
+    - https://github.com/Hack-with-Github/Awesome-Hacking
     - https://github.com/hslatman/awesome-threat-intelligence
     - https://github.com/meirwah/awesome-incident-response
+    - https://github.com/paragonie/awesome-appsec
+    - https://github.com/PaulSec/awesome-sec-talks
     - https://github.com/qazbnm456/awesome-web-security
+    - https://github.com/sbilly/awesome-security
+    - https://github.com/shieldfy/API-Security-Checklist
+    - https://github.com/trimstray/test-your-sysadmin-skills
+    - https://github.com/trimstray/the-book-of-secret-knowledge
+    - https://github.com/vinta/awesome-python
     - https://github.com/xairy/linux-kernel-exploitation
-
 
 - name: Sec - WiFi
   git:
@@ -225,11 +265,22 @@
     enabled: yes
     state: started
 
-# - name: cups
-#   systemd:
-#     name: cups
-#     enabled: no
-#     state: stopped
+
+
+
+- name: cups
+  systemd:
+    name: "{{item}}"
+    enabled: no
+    state: stopped
+  with_items:
+  - cups
+  - avahi-daemon
+  - bluetooth
+  - clamav-freshclam
+  - colord
+  - cups-browsed
+  - ModemManager
 
 - name: tor
   systemd:
