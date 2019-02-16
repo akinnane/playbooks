@@ -156,6 +156,7 @@
 
 - name: Security Repos
   git:
+    depth: 1
     repo: "{{item}}.git"
     dest: "/home/a/github/security/tools/{{item.split('/')[-1]}}"
   with_items:
@@ -177,6 +178,7 @@
 
 - name: Security - Docs
   git:
+    depth: 1
     repo: "{{item}}.git"
     dest: "/home/a/github/security/docs/{{item.split('/')[-1]}}"
   with_items:
@@ -187,6 +189,7 @@
     - https://github.com/forter/security-101-for-saas-startups
     - https://github.com/Hack-with-Github/Awesome-Hacking
     - https://github.com/hslatman/awesome-threat-intelligence
+    - https://github.com/LOLBAS-Project/LOLBAS
     - https://github.com/meirwah/awesome-incident-response
     - https://github.com/paragonie/awesome-appsec
     - https://github.com/PaulSec/awesome-sec-talks
@@ -200,6 +203,7 @@
 
 - name: Sec - WiFi
   git:
+    depth: 1
     repo: "{{item}}"
     dest: "/home/a/github/security/wifi/{{item.split('/')[-1]}}"
   with_items:
@@ -240,11 +244,13 @@
 
 - name: Oh my zsh
   git:
+    depth: 1
     repo: https://GitHub.com/robbyrussell/oh-my-zsh.git
     dest: /home/a/.oh-my-zsh
 
 - name: emacs prelude
   git:
+    update: no
     repo: https://github.com/bbatsov/prelude.git
     dest: /home/a/.emacs.d
 
