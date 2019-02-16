@@ -138,6 +138,7 @@
     - https://github.com/michenriksen/gitrob
     - https://github.com/samratashok/nishang
     - https://github.com/duo-labs/cloudmapper
+    - https://github.com/rapid7/metasploit-framework
 
 - name: Security - Docs
   git:
