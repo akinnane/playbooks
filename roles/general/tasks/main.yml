@@ -66,6 +66,7 @@
     - gstreamer1.0-libav
     - gstreamer1.0-vaapi
     - libva2
+    - lastpass-cli
     - spotify-client
     - ubuntu-restricted-extras
     - va-driver-all
