@@ -108,6 +108,7 @@
     - chromium-chromedriver
     - docker
     - docker.io
+    - inotify-tools
     - libbz2-dev
     - libpcap-dev
     - yasm
