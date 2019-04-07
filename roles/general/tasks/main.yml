@@ -154,6 +154,7 @@
     - tcptrace
     - tor
     - wireshark
+    - whois
     - zmap
 
 - name: Security Repos
@@ -181,35 +182,46 @@
 - name: Security - Docs
   git:
     depth: 1
-    repo: "{{item}}.git"
-    dest: "/home/a/github/security/docs/{{item.split('/')[-1]}}"
+    repo: "https://github.com/{{item}}"
+    dest: "/home/a/work/github/{{item]}}"
   with_items:
-    - https://github.com/apsdehal/awesome-ctf
-    - https://github.com/Developer-Y/cs-video-courses
-    - https://github.com/drduh/macOS-Security-and-Privacy-Guide
-    - https://github.com/drduh/YubiKey-Guide
-    - https://github.com/forter/security-101-for-saas-startups
-    - https://github.com/Hack-with-Github/Awesome-Hacking
-    - https://github.com/hslatman/awesome-threat-intelligence
-    - https://github.com/LOLBAS-Project/LOLBAS
-    - https://github.com/meirwah/awesome-incident-response
-    - https://github.com/paragonie/awesome-appsec
-    - https://github.com/PaulSec/awesome-sec-talks
-    - https://github.com/qazbnm456/awesome-web-security
-    - https://github.com/sbilly/awesome-security
-    - https://github.com/shieldfy/API-Security-Checklist
-    - https://github.com/trimstray/test-your-sysadmin-skills
-    - https://github.com/trimstray/the-book-of-secret-knowledge
-    - https://github.com/vinta/awesome-python
-    - https://github.com/xairy/linux-kernel-exploitation
+    - apsdehal/awesome-ctf
+    - Developer-Y/cs-video-courses
+    - drduh/macOS-Security-and-Privacy-Guide
+    - drduh/YubiKey-Guide
+    - forter/security-101-for-saas-startups
+    - Hack-with-Github/Awesome-Hacking
+    - hslatman/awesome-threat-intelligence
+    - LOLBAS-Project/LOLBAS
+    - meirwah/awesome-incident-response
+    - paragonie/awesome-appsec
+    - PaulSec/awesome-sec-talks
+    - qazbnm456/awesome-web-security
+    - sbilly/awesome-security
+    - shieldfy/API-Security-Checklist
+    - trimstray/test-your-sysadmin-skills
+    - trimstray/the-book-of-secret-knowledge
+    - vinta/awesome-python
+    - xairy/linux-kernel-exploitation
 
 - name: Sec - WiFi
   git:
     depth: 1
-    repo: "{{item}}"
-    dest: "/home/a/github/security/wifi/{{item.split('/')[-1]}}"
+    repo: "https://github.com/{{item}}"
+    dest: "/home/a/work/github/{{item]}}"
   with_items:
-    - https://github.com/wifiphisher/wifiphisher
+    - wifiphisher/wifiphisher
+
+- name: Rust
+  git:
+    depth: 1
+    repo: "https://github.com/{{item}}"
+    dest: "/home/a/work/github/{{item]}}"
+  with_items:
+    - rust-unofficial/patterns
+    - mre/idiomatic-rust
+    - rust-lang/rust
+    - rust-unofficial/awesome-rust
 
 - name: Mange etc
   synchronize:
