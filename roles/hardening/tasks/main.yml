@@ -1,0 +1,16 @@
+- name: Install hardening packages
+  apt:
+    state: present
+    pkg: "{{item}}"
+  with_items:
+    - apparmor-profiles
+    - apparmor-utils
+
+- name: Remove privacy comprising packages
+  apt:
+    state: absent
+    pkg: "{{item}}"
+  with_items:
+    - apport
+    - whoopsie
+    - popularity-contest

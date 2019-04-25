@@ -25,6 +25,13 @@
   notify:
     - update-grub2
 
+- name: Manage home
+  synchronize:
+    src: a
+    dest: /home
+    checksum: yes
+    archive: no
+    recursive: yes
 
 - name: libinput
   copy:

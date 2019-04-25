@@ -66,6 +66,7 @@
     - gstreamer1.0-libav
     - gstreamer1.0-vaapi
     - libva2
+    - lastpass-cli
     - spotify-client
     - ubuntu-restricted-extras
     - va-driver-all
@@ -109,6 +110,7 @@
     - docker
     - docker.io
     - golang-go
+    - inotify-tools
     - libbz2-dev
     - libbz2-dev
     - libgmp-dev
@@ -163,63 +165,29 @@
     - tcptrace
     - tshark
     - wireshark
+    - whois
     - zmap
 
 
-# - name: Security Repos
-#   git:
-#     depth: 1
-#     repo: "{{item}}.git"
-#     dest: "/home/a/github/security/tools/{{item.split('/')[-1]}}"
-#   with_items:
-#     - https://github.com/bettercap/bettercap
-#     - https://github.com/duo-labs/cloudmapper
-#     - https://github.com/gophish/gophish
-#     - https://github.com/jofpin/trape
-#     - https://github.com/michenriksen/gitrob
-#     - https://github.com/mitmproxy/mitmproxy
-#     - https://github.com/NullArray/AutoSploit
-#     - https://github.com/samratashok/nishang
-#     - https://github.com/duo-labs/cloudmapper
-#     - https://github.com/rapid7/metasploit-framework
-#     - https://github.com/secdev/scapy
-#     - https://github.com/wpscanteam/wpscan
-#     - https://github.com/zricethezav/gitleaks
-#     - https://github.com/hashcat/hashcat
-#     - https://github.com/magnumripper/JohnTheRipper
-
-# - name: Security - Docs
-#   git:
-#     depth: 1
-#     repo: "{{item}}.git"
-#     dest: "/home/a/github/security/docs/{{item.split('/')[-1]}}"
-#   with_items:
-#     - https://github.com/apsdehal/awesome-ctf
-#     - https://github.com/Developer-Y/cs-video-courses
-#     - https://github.com/drduh/macOS-Security-and-Privacy-Guide
-#     - https://github.com/drduh/YubiKey-Guide
-#     - https://github.com/forter/security-101-for-saas-startups
-#     - https://github.com/Hack-with-Github/Awesome-Hacking
-#     - https://github.com/hslatman/awesome-threat-intelligence
-#     - https://github.com/LOLBAS-Project/LOLBAS
-#     - https://github.com/meirwah/awesome-incident-response
-#     - https://github.com/paragonie/awesome-appsec
-#     - https://github.com/PaulSec/awesome-sec-talks
-#     - https://github.com/qazbnm456/awesome-web-security
-#     - https://github.com/sbilly/awesome-security
-#     - https://github.com/shieldfy/API-Security-Checklist
-#     - https://github.com/trimstray/test-your-sysadmin-skills
-#     - https://github.com/trimstray/the-book-of-secret-knowledge
-#     - https://github.com/vinta/awesome-python
-#     - https://github.com/xairy/linux-kernel-exploitation
 
 - name: Sec - WiFi
   git:
     depth: 1
-    repo: "{{item}}"
-    dest: "/home/a/github/security/wifi/{{item.split('/')[-1]}}"
+    repo: "https://github.com/{{item}}"
+    dest: "/home/a/work/github/{{item]}}"
   with_items:
-    - https://github.com/wifiphisher/wifiphisher
+    - wifiphisher/wifiphisher
+
+- name: Rust
+  git:
+    depth: 1
+    repo: "https://github.com/{{item}}"
+    dest: "/home/a/work/github/{{item]}}"
+  with_items:
+    - rust-unofficial/patterns
+    - mre/idiomatic-rust
+    - rust-lang/rust
+    - rust-unofficial/awesome-rust
 
 - name: Mange etc
   synchronize:
