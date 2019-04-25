@@ -27,10 +27,10 @@
     pkg:
     - curl
     - emacs
+    - exfat-utils
     - iptables-persistent
     - netfilter-persistent
     - net-tools
-    - openconnect
     - openconnect
     - openssh-server
     - qemu
@@ -71,7 +71,6 @@
     - va-driver-all
     - vainfo
     - vlc
-    - xscreensaver
 
 - name: Install power tools
   apt:
@@ -102,29 +101,39 @@
     state: present
     pkg:
     - ansible
+    - apache2-utils
+    - bless
     - build-essential
     - checkinstall
     - chromium-chromedriver
     - docker
     - docker.io
+    - golang-go
     - libbz2-dev
-    - libpcap-dev
-    - yasm
+    - libbz2-dev
     - libgmp-dev
-    - libpcap-dev
-    - libnss3-dev
     - libkrb5-dev
-    - pkg-config
-    - libbz2-dev
-    - zlib1g-dev
+    - libnss3-dev
+    - libpcap-dev
+    - libpcap-dev
+    - libsqlite3-dev
+    - libssl1.0-dev
+    - libssl-dev
+    - node-gyp
+    - nodejs-dev
+    - npm
     - nvidia-cuda-toolkit
     - nvidia-opencl-dev
-    - libssl-dev
+    - pkg-config
     - python3-pip
     - python-pip
     - python-setuptools
     - ruby
+    - ruby-dev
     - strace
+    - yasm
+    - zeal
+    - zlib1g-dev
     - zlib1g-dev
 
 - name: Install Sec tools
@@ -132,6 +141,8 @@
     state: present
     pkg:
     - aircrack-ng
+    - bro
+    - bro-aux
     - clamav
     - dsniff
     - etherape
@@ -150,56 +161,57 @@
     - rkhunter
     - scapy
     - tcptrace
-    - tor
+    - tshark
     - wireshark
     - zmap
 
-- name: Security Repos
-  git:
-    depth: 1
-    repo: "{{item}}.git"
-    dest: "/home/a/github/security/tools/{{item.split('/')[-1]}}"
-  with_items:
-    - https://github.com/bettercap/bettercap
-    - https://github.com/duo-labs/cloudmapper
-    - https://github.com/gophish/gophish
-    - https://github.com/jofpin/trape
-    - https://github.com/michenriksen/gitrob
-    - https://github.com/mitmproxy/mitmproxy
-    - https://github.com/NullArray/AutoSploit
-    - https://github.com/samratashok/nishang
-    - https://github.com/duo-labs/cloudmapper
-    - https://github.com/rapid7/metasploit-framework
-    - https://github.com/secdev/scapy
-    - https://github.com/wpscanteam/wpscan
-    - https://github.com/zricethezav/gitleaks
-    - https://github.com/hashcat/hashcat
-    - https://github.com/magnumripper/JohnTheRipper
 
-- name: Security - Docs
-  git:
-    depth: 1
-    repo: "{{item}}.git"
-    dest: "/home/a/github/security/docs/{{item.split('/')[-1]}}"
-  with_items:
-    - https://github.com/apsdehal/awesome-ctf
-    - https://github.com/Developer-Y/cs-video-courses
-    - https://github.com/drduh/macOS-Security-and-Privacy-Guide
-    - https://github.com/drduh/YubiKey-Guide
-    - https://github.com/forter/security-101-for-saas-startups
-    - https://github.com/Hack-with-Github/Awesome-Hacking
-    - https://github.com/hslatman/awesome-threat-intelligence
-    - https://github.com/LOLBAS-Project/LOLBAS
-    - https://github.com/meirwah/awesome-incident-response
-    - https://github.com/paragonie/awesome-appsec
-    - https://github.com/PaulSec/awesome-sec-talks
-    - https://github.com/qazbnm456/awesome-web-security
-    - https://github.com/sbilly/awesome-security
-    - https://github.com/shieldfy/API-Security-Checklist
-    - https://github.com/trimstray/test-your-sysadmin-skills
-    - https://github.com/trimstray/the-book-of-secret-knowledge
-    - https://github.com/vinta/awesome-python
-    - https://github.com/xairy/linux-kernel-exploitation
+# - name: Security Repos
+#   git:
+#     depth: 1
+#     repo: "{{item}}.git"
+#     dest: "/home/a/github/security/tools/{{item.split('/')[-1]}}"
+#   with_items:
+#     - https://github.com/bettercap/bettercap
+#     - https://github.com/duo-labs/cloudmapper
+#     - https://github.com/gophish/gophish
+#     - https://github.com/jofpin/trape
+#     - https://github.com/michenriksen/gitrob
+#     - https://github.com/mitmproxy/mitmproxy
+#     - https://github.com/NullArray/AutoSploit
+#     - https://github.com/samratashok/nishang
+#     - https://github.com/duo-labs/cloudmapper
+#     - https://github.com/rapid7/metasploit-framework
+#     - https://github.com/secdev/scapy
+#     - https://github.com/wpscanteam/wpscan
+#     - https://github.com/zricethezav/gitleaks
+#     - https://github.com/hashcat/hashcat
+#     - https://github.com/magnumripper/JohnTheRipper
+
+# - name: Security - Docs
+#   git:
+#     depth: 1
+#     repo: "{{item}}.git"
+#     dest: "/home/a/github/security/docs/{{item.split('/')[-1]}}"
+#   with_items:
+#     - https://github.com/apsdehal/awesome-ctf
+#     - https://github.com/Developer-Y/cs-video-courses
+#     - https://github.com/drduh/macOS-Security-and-Privacy-Guide
+#     - https://github.com/drduh/YubiKey-Guide
+#     - https://github.com/forter/security-101-for-saas-startups
+#     - https://github.com/Hack-with-Github/Awesome-Hacking
+#     - https://github.com/hslatman/awesome-threat-intelligence
+#     - https://github.com/LOLBAS-Project/LOLBAS
+#     - https://github.com/meirwah/awesome-incident-response
+#     - https://github.com/paragonie/awesome-appsec
+#     - https://github.com/PaulSec/awesome-sec-talks
+#     - https://github.com/qazbnm456/awesome-web-security
+#     - https://github.com/sbilly/awesome-security
+#     - https://github.com/shieldfy/API-Security-Checklist
+#     - https://github.com/trimstray/test-your-sysadmin-skills
+#     - https://github.com/trimstray/the-book-of-secret-knowledge
+#     - https://github.com/vinta/awesome-python
+#     - https://github.com/xairy/linux-kernel-exploitation
 
 - name: Sec - WiFi
   git:
@@ -247,12 +259,14 @@
     depth: 1
     repo: https://GitHub.com/robbyrussell/oh-my-zsh.git
     dest: /home/a/.oh-my-zsh
+  ignore_errors: yes
 
 - name: emacs prelude
   git:
     update: no
     repo: https://github.com/bbatsov/prelude.git
     dest: /home/a/.emacs.d
+  ignore_errors: yes
 
 - name: ssh-server
   systemd:
@@ -281,11 +295,24 @@
   - ModemManager
   - postfix
 
-- name: tor
-  systemd:
-    name: tor
-    enabled: no
-    state: stopped
+# - name: tor
+#   apt:
+#     state: present
+#     pkg:
+#       - tor
+
+# - name: tor
+#   systemd:
+#     name: tor
+#     enabled: no
+#     state: stopped
+
+# - name: Set homedir permissions
+#   file:
+#     dest: /home/a
+#     owner: a
+#     group: a
+#     recurse: yes
 
 # - name: Schedule automatic ansible updates
 #   cron:
