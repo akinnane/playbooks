@@ -29,11 +29,17 @@ COMMIT
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -i lo -j ACCEPT
+# DNS
 # -A INPUT -s 127.0.0.1/32 -i lo -p udp -m udp --dport 53 -j ACCEPT
 # -A INPUT -s 127.0.0.53/32 -i lo -p udp -m udp --dport 53 -j ACCEPT
 -A INPUT -i virbr0 -p udp -m udp --dport 68 -j ACCEPT
+# bittorrent
 -A INPUT -p udp -m udp --dport 51413 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 51413 -j ACCEPT
+# DLNA
+-A INPUT -p tcp -m tcp -s 192.168.0.3 --dport 8010 -j ACCEPT
+-A INPUT -p udp -m udp -s 192.168.0.3 --dport 5353 -j ACCEPT
+# TOR
 -A INPUT -d 192.168.122.1/32 -i virbr0 -p tcp -m tcp --dport 9050 -j ACCEPT
 # -A INPUT -d 127.0.0.1 -i lo -p tcp -m tcp --dport 9050 -j ACCEPT
 -A INPUT -j LOG --log-prefix=REJECTED_INPUT: -m limit --limit 1/min
