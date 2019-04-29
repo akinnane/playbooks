@@ -152,7 +152,6 @@
     - rkhunter
     - scapy
     - tcptrace
-    - tor
     - wireshark
     - zmap
 
@@ -283,11 +282,13 @@
   - ModemManager
   - postfix
 
-- name: tor
-  systemd:
-    name: tor
-    enabled: no
-    state: stopped
+- name: python modules
+  pip:
+    executable: pip3
+    name:
+      - tox
+      - black
+      - pytest
 
 # - name: Schedule automatic ansible updates
 #   cron:
