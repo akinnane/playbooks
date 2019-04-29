@@ -132,6 +132,7 @@
     - python-setuptools
     - ruby
     - ruby-dev
+    - shellcheck
     - strace
     - yasm
     - zeal
