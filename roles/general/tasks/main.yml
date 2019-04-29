@@ -212,16 +212,16 @@
   with_items:
     - wifiphisher/wifiphisher
 
-- name: Rust
-  git:
-    depth: 1
-    repo: "https://github.com/{{item}}"
-    dest: "/home/a/work/github/{{item]}}"
-  with_items:
-    - rust-unofficial/patterns
-    - mre/idiomatic-rust
-    - rust-lang/rust
-    - rust-unofficial/awesome-rust
+# - name: Rust
+#   git:
+#     depth: 1
+#     repo: "https://github.com/{{item}}"
+#     dest: "/home/a/work/github/{{item}}"
+#   with_items:
+#     - rust-unofficial/patterns
+#     - mre/idiomatic-rust
+#     - rust-lang/rust
+#     - rust-unofficial/awesome-rust
 
 - name: Mange etc
   synchronize:
