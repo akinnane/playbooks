@@ -183,7 +183,7 @@
   git:
     depth: 1
     repo: "https://github.com/{{item}}"
-    dest: "/home/a/work/github/{{item]}}"
+    dest: "/home/a/work/github/{{item}}"
   with_items:
     - apsdehal/awesome-ctf
     - Developer-Y/cs-video-courses
@@ -208,7 +208,7 @@
   git:
     depth: 1
     repo: "https://github.com/{{item}}"
-    dest: "/home/a/work/github/{{item]}}"
+    dest: "/home/a/work/github/{{item}}"
   with_items:
     - wifiphisher/wifiphisher
 
