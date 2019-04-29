@@ -309,10 +309,17 @@
 #     cron_file: ansible-update
 #     job: /usr/bin/ansible-pull -U https://github.com/akinnane/playbooks.git -i localhost,
 
-# - name: Set homedir permissions
-#   file:
-#     dest: /home/a
-#     owner: a
-#     group: a
-#     mode: u=rwX, g=, o=
-    # recurse: yes
+- name: Set homedir permissions
+  file:
+    dest: /home/a
+    owner: a
+    group: a
+    recurse: yes
+
+- name: Set authorized key
+  authorized_key:
+    user: a
+    state: present
+    key: "{{item}}"
+  with_items:
+    - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgqbXbHoy9sGxcOXW+gU9CwR9uYctNQ32O0TwD7AclB a@xps"
