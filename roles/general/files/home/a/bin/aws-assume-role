@@ -1,0 +1,18 @@
+#!/bin/bash
+
+unset AWS_SESSION_TOKEN
+unset AWS_SECRET_ACCESS_TOKEN
+unset AWS_ACCESS_KEY_ID
+
+STS_JSON=$(
+    aws sts assume-role \
+        --role-arn "${1}" \
+        --role-session-name "$(date +%s)" \
+        --duration 1800 \
+        --serial-number "${2}" \
+        --token "${3}"
+         )
+
+export AWS_ACCESS_KEY_ID="$(echo "${STS_JSON}" | jq .Credentials.AccessKeyId | xargs)"
+export AWS_SECRET_ACCESS_KEY="$(echo "${STS_JSON}" | jq .Credentials.SecretAccessKey | xargs)"
+export AWS_SESSION_TOKEN="$(echo "${STS_JSON}" | jq .Credentials.SessionToken | xargs)"
