@@ -296,6 +296,14 @@
       - tox
       - black
       - pytest
+
+- name: npm globals
+  npm:
+    global: yes
+    name:
+      - gulp-cli
+      - npm-reinstall
+
 # - name: tor
 #   apt:
 #     state: present
