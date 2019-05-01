@@ -303,6 +303,7 @@
     name:
       - gulp-cli
       - npm-reinstall
+      - prettier
 
 # - name: tor
 #   apt:
