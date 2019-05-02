@@ -111,6 +111,7 @@
     - docker.io
     - golang-go
     - inotify-tools
+    - jq
     - libbz2-dev
     - libbz2-dev
     - libgmp-dev
