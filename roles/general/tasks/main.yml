@@ -109,12 +109,14 @@
     - chromium-chromedriver
     - docker
     - docker.io
+    - dvipng
     - golang-go
     - inotify-tools
     - jq
     - libbz2-dev
     - libbz2-dev
     - libgmp-dev
+    - libguestfs-tools
     - libkrb5-dev
     - libnss3-dev
     - libpcap-dev
@@ -127,12 +129,15 @@
     - npm
     - nvidia-cuda-toolkit
     - nvidia-opencl-dev
+    - pgcli
     - pkg-config
     - python3-pip
     - python-pip
     - python-setuptools
     - ruby
     - ruby-dev
+    - texlive
+    - texlive-latex-extra
     - shellcheck
     - strace
     - yasm
@@ -294,9 +299,14 @@
   pip:
     executable: pip3
     name:
-      - tox
+      - autopep8
       - black
+      - flake8
+      - jedi
       - pytest
+      - rope
+      - tox
+      - yapf
 
 - name: npm globals
   npm:
@@ -318,12 +328,11 @@
 #     enabled: no
 #     state: stopped
 
-# - name: Set homedir permissions
-#   file:
-#     dest: /home/a
-#     owner: a
-#     group: a
-#     recurse: yes
+- name: Set homedir permissions
+  file:
+    dest: /home/a/
+    owner: a
+    recurse: yes
 
 # - name: Schedule automatic ansible updates
 #   cron:
