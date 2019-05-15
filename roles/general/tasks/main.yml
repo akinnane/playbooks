@@ -307,6 +307,7 @@
       - rope
       - tox
       - yapf
+      - awscli
 
 - name: npm globals
   npm:
