@@ -48,6 +48,7 @@
     - dconf-cli
     - google-chrome-stable
     - gparted
+    - hexchat
     - net-tools
     - network-manager-openconnect
     - network-manager-openconnect-gnome
@@ -308,6 +309,7 @@
       - tox
       - yapf
       - awscli
+      - ipython
 
 - name: npm globals
   npm:
