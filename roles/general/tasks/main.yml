@@ -3,6 +3,15 @@
     keyserver: keyserver.ubuntu.com
     id: 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
 
+- name: Atom apt key
+  apt_key:
+    url: https://packagecloud.io/AtomEditor/atom/gpgkey
+
+- name: Atom Repo
+  apt_repository:
+    repo: deb https://packagecloud.io/AtomEditor/atom/any/ any main
+    state: present
+
 - name: Spotify Repo
   apt_repository:
     repo: deb http://repository.spotify.com stable non-free
@@ -12,9 +21,13 @@
   apt_key:
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
 
-- name: Google Repo
+- name: Google repo
   apt_repository:
     repo: deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
+
+- name: Wireguard repo
+  apt_repository:
+    repo: ppa:wireguard/wireguard
 
 - name: Update everything
   apt:
@@ -37,6 +50,7 @@
     - rar
     - smbclient
     - unattended-upgrades
+    - wireguard
     - zsh
 
 - name: Install Desktop
