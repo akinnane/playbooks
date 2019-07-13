@@ -62,6 +62,7 @@
     - dconf-cli
     - google-chrome-stable
     - gparted
+    - hexchat
     - net-tools
     - network-manager-openconnect
     - network-manager-openconnect-gnome
@@ -70,6 +71,7 @@
     - rtl8812au-dkms
     - transmission-gtk
     - tree
+    - xclip
     - xscreensaver
 
 - name: Install Desktop media
@@ -326,6 +328,8 @@
       - rope
       - tox
       - yapf
+      - awscli
+      - ipython
 
 - name: npm globals
   npm:
