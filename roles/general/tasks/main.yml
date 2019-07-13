@@ -67,6 +67,7 @@
     - network-manager-openconnect-gnome
     - pavucontrol
     - pwgen
+    - rtl8812au-dkms
     - transmission-gtk
     - tree
     - xscreensaver
