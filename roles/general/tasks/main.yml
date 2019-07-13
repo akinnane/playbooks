@@ -7,12 +7,12 @@
   apt_key:
     url: https://packagecloud.io/AtomEditor/atom/gpgkey
 
-- name: Atom Repo
+- name: Atom repo
   apt_repository:
     repo: deb https://packagecloud.io/AtomEditor/atom/any/ any main
     state: present
 
-- name: Spotify Repo
+- name: Spotify repo
   apt_repository:
     repo: deb http://repository.spotify.com stable non-free
     state: present
@@ -117,6 +117,7 @@
     pkg:
     - ansible
     - apache2-utils
+    - atom
     - bless
     - build-essential
     - checkinstall
