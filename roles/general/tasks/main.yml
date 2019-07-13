@@ -136,9 +136,11 @@
     - libnss3-dev
     - libpcap-dev
     - libpcap-dev
+    - libpq-dev
     - libsqlite3-dev
     - libssl1.0-dev
     - libssl-dev
+    - mycli
     - node-gyp
     - nodejs-dev
     - npm
