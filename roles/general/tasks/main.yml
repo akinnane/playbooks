@@ -156,6 +156,7 @@
     - shellcheck
     - strace
     - yasm
+    - webp
     - zeal
     - zlib1g-dev
     - zlib1g-dev
