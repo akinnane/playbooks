@@ -81,6 +81,7 @@
     state: present
     pkg:
     - audacity
+    - exif
     - gimp
     - gstreamer1.0-libav
     - gstreamer1.0-vaapi
