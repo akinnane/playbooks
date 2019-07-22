@@ -46,6 +46,8 @@
     - net-tools
     - openconnect
     - openssh-server
+    - openresolv
+    - openvpn
     - qemu
     - rar
     - smbclient
@@ -154,6 +156,7 @@
     - python3-pip
     - python-pip
     - python-setuptools
+    - qrencode
     - ruby
     - ruby-dev
     - texlive
@@ -331,13 +334,15 @@
       - awscli
       - ipython
 
-- name: npm globals
-  npm:
-    global: yes
-    name:
-      - gulp-cli
-      - npm-reinstall
-      - prettier
+# This breaks due to stupid library dependencies/conflicts
+
+# - name: npm globals
+#   npm:
+#     global: yes
+#     name:
+#       - gulp-cli
+#       - npm-reinstall
+#       - prettier
 
 # - name: tor
 #   apt:
