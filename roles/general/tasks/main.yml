@@ -107,6 +107,7 @@
     - build-essential
     - checkinstall
     - chromium-chromedriver
+    - default-jdk
     - docker
     - docker.io
     - golang-go
