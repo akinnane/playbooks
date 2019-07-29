@@ -8,7 +8,7 @@ STS_JSON=$(
     aws sts assume-role \
         --role-arn "${1}" \
         --role-session-name "$(date +%s)" \
-        --duration 1800 \
+        --duration 3600 \
         --serial-number "${2}" \
         --token "${3}"
          )

@@ -3,7 +3,16 @@
     keyserver: keyserver.ubuntu.com
     id: 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
 
-- name: Spotify Repo
+- name: Atom apt key
+  apt_key:
+    url: https://packagecloud.io/AtomEditor/atom/gpgkey
+
+- name: Atom repo
+  apt_repository:
+    repo: deb https://packagecloud.io/AtomEditor/atom/any/ any main
+    state: present
+
+- name: Spotify repo
   apt_repository:
     repo: deb http://repository.spotify.com stable non-free
     state: present
@@ -12,9 +21,13 @@
   apt_key:
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
 
-- name: Google Repo
+- name: Google repo
   apt_repository:
     repo: deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
+
+- name: Wireguard repo
+  apt_repository:
+    repo: ppa:wireguard/wireguard
 
 - name: Update everything
   apt:
@@ -33,10 +46,13 @@
     - net-tools
     - openconnect
     - openssh-server
+    - openresolv
+    - openvpn
     - qemu
     - rar
     - smbclient
     - unattended-upgrades
+    - wireguard
     - zsh
 
 - name: Install Desktop
@@ -48,13 +64,16 @@
     - dconf-cli
     - google-chrome-stable
     - gparted
+    - hexchat
     - net-tools
     - network-manager-openconnect
     - network-manager-openconnect-gnome
     - pavucontrol
     - pwgen
+    - rtl8812au-dkms
     - transmission-gtk
     - tree
+    - xclip
     - xscreensaver
 
 - name: Install Desktop media
@@ -62,6 +81,7 @@
     state: present
     pkg:
     - audacity
+    - exif
     - gimp
     - gstreamer1.0-libav
     - gstreamer1.0-vaapi
@@ -103,6 +123,7 @@
     pkg:
     - ansible
     - apache2-utils
+    - atom
     - bless
     - build-essential
     - checkinstall
@@ -112,16 +133,19 @@
     - docker.io
     - docker-compose
     - expect
+    - dvipng
     - golang-go
     - inotify-tools
     - jq
     - libbz2-dev
     - libbz2-dev
     - libgmp-dev
+    - libguestfs-tools
     - libkrb5-dev
     - libnss3-dev
     - libpcap-dev
     - libpcap-dev
+    - libpq-dev
     - libsqlite3-dev
     - libssl1.0-dev
     - libssl-dev
@@ -131,15 +155,20 @@
     - npm
     - nvidia-cuda-toolkit
     - nvidia-opencl-dev
+    - pgcli
     - pkg-config
     - python3-pip
     - python-pip
     - python-setuptools
+    - qrencode
     - ruby
     - ruby-dev
+    - texlive
+    - texlive-latex-extra
     - shellcheck
     - strace
     - yasm
+    - webp
     - zeal
     - zlib1g-dev
     - zlib1g-dev
@@ -168,6 +197,7 @@
     - radare2
     - rkhunter
     - scapy
+    - sshpass
     - tcptrace
     - tshark
     - wireshark
@@ -298,18 +328,27 @@
   pip:
     executable: pip3
     name:
-      - tox
+      - autopep8
+      - awscli
       - black
+      - flake8
+      - ipython
+      - jedi
       - pytest
+      - rope
+      - tox
       - yamllint
+      - yapf
 
-- name: npm globals
-  npm:
-    global: yes
-    name:
-      - gulp-cli
-      - npm-reinstall
-      - prettier
+# This breaks due to stupid library dependencies/conflicts
+
+# - name: npm globals
+#   npm:
+#     global: yes
+#     name:
+#       - gulp-cli
+#       - npm-reinstall
+#       - prettier
 
 # - name: tor
 #   apt:
@@ -323,12 +362,11 @@
 #     enabled: no
 #     state: stopped
 
-# - name: Set homedir permissions
-#   file:
-#     dest: /home/a
-#     owner: a
-#     group: a
-#     recurse: yes
+- name: Set homedir permissions
+  file:
+    dest: /home/a/
+    owner: a
+    recurse: yes
 
 # - name: Schedule automatic ansible updates
 #   cron:
