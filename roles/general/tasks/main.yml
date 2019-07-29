@@ -110,6 +110,8 @@
     - default-jdk
     - docker
     - docker.io
+    - docker-compose
+    - expect
     - golang-go
     - inotify-tools
     - jq
@@ -123,6 +125,7 @@
     - libsqlite3-dev
     - libssl1.0-dev
     - libssl-dev
+    - mycli
     - node-gyp
     - nodejs-dev
     - npm
@@ -298,6 +301,7 @@
       - tox
       - black
       - pytest
+      - yamllint
 
 - name: npm globals
   npm:
